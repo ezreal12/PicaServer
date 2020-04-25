@@ -2,7 +2,7 @@ package com.server.pica.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,21 +27,22 @@ public class MainCont {
 	}
 	
 	@RequestMapping(value = "/picUpload.do",method = RequestMethod.POST)
-	public void upload(MultipartFile uploadfile){
+	public void upload(int p_member_id,int p_album_id, MultipartFile uploadfile){
 	    //logger.info("upload() POST 호출");
 	    //logger.info("파일 이름: {}", uploadfile.getOriginalFilename());
 	    //logger.info("파일 크기: {}", uploadfile.getSize());
 		System.out.println("upload() POST 호출");
 		System.out.println("파일 이름: {"+uploadfile.getOriginalFilename()+"}");
 		System.out.println("파일 크기: {"+ uploadfile.getSize()+"}");
+		System.out.println("p_member_id : {"+p_member_id+"}");
+		System.out.println("p_album_id : {"+ p_album_id+"}");
 	    saveFile(uploadfile);
 
 	}
 
 	private String saveFile(MultipartFile file){
-	    // 파일 이름 변경
-	    UUID uuid = UUID.randomUUID();
-	    String saveName = uuid + "_" + file.getOriginalFilename();
+	   
+	    String saveName = file.getOriginalFilename();
 
 	    //logger.info("saveName: {}",saveName);
 	    System.out.println("saveName: {"+saveName+"}");
