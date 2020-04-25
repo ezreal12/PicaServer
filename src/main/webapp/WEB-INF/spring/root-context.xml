@@ -41,7 +41,9 @@
 	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 
 	</bean>  
-	
 	<!-- mybatis-spring:scan base-package="com.server.pica.dao" : 에러발생 -->
+	<!-- servlet-context.xml에 <context:component-scan base-package="com.server.pica" /> 선언이 있음 -->
+	<!-- 이거 중복되면 bean 생성과정에서 중복되서 에러남 안쓰면 안쓰는대로 뭐라하고 스캔범위 중복되면 중복된다고 뭐라함 -->
+	
 	
 </beans>

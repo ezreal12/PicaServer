@@ -30,7 +30,8 @@ public class MainCont {
 	public String home() {
 		return "home";
 	}
-	
+	//파일 이름에 특수문자가 있거나 길면 (괄호,한국어등) 에러 발생
+	//특정 언어, 특수문자에 관한 처리도 필요
 	@RequestMapping(value = "/picUpload.do",method = RequestMethod.POST)
 	public void upload(int p_member_id,int p_album_id, MultipartFile uploadfile){
 	    //logger.info("upload() POST 호출");
