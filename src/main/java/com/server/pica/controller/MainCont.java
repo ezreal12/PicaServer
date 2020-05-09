@@ -48,7 +48,7 @@ public class MainCont {
 		
 		ModelAndView mav = new ModelAndView();
 	    mav.setViewName("UploadTest");
-	    mav.addObject("message", "Hello World!");
+	    mav.addObject("result", result);
 		
 		return mav;
 	}
