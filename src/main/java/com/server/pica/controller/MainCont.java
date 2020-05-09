@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.server.pica.dto.RegisterMemberDTO;
 import com.server.pica.service.PicService;
 
 
@@ -22,15 +23,11 @@ public class MainCont {
 	@Autowired
 	PicService picService;
 	
-	
-	@RequestMapping("test")
-	public String test() {
-		return "test";
-	}
 	@RequestMapping("")
 	public String home() {
 		return "home";
 	}
+
 	//파일 이름에 특수문자가 있거나 길면 (괄호,한국어등) 에러 발생
 	//특정 언어, 특수문자에 관한 처리도 필요
 	@RequestMapping(value = "/picUpload.do",method = RequestMethod.POST)
@@ -44,13 +41,35 @@ public class MainCont {
 		System.out.println("p_member_id : {"+p_member_id+"}");
 		System.out.println("p_album_id : {"+ p_album_id+"}");
 		int result = picService.savePicture(p_member_id, p_album_id, uploadfile);
-		System.out.println("실행결과 : {"+ result+"}");
+		System.out.println("picUpload.do 파일 업로드 실행결과 : {"+ result+"}");
 		
 		ModelAndView mav = new ModelAndView();
-	    mav.setViewName("UploadTest");
+	    mav.setViewName("ResultMoniter");
 	    mav.addObject("result", result);
 		
 		return mav;
 	}
 
+	
+	@RequestMapping(value = "/registerMember.do",method = RequestMethod.POST)
+	public ModelAndView registerMember(RegisterMemberDTO dto){
+		System.out.println("getEmail : {"+ dto.getEmail()+"}");
+		int result = picService.registerMember(dto);
+		System.out.println("picUpload.do 파일 업로드 실행결과 : {"+ result+"}");
+		ModelAndView mav = new ModelAndView();
+	    mav.setViewName("ResultMoniter");
+	    mav.addObject("result", result);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/createAlbum.do",method = RequestMethod.POST)
+	public ModelAndView createAlbum(int p_member_id,int p_album_id, MultipartFile uploadfile){
+		ModelAndView mav = new ModelAndView();
+	    mav.setViewName("ResultMoniter");
+	    //mav.addObject("result", result);
+		return mav;
+	}
+	
+	
+	
 }

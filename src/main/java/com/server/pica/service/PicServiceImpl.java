@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.server.pica.dao.PicDAO;
 import com.server.pica.dto.PicUploadDTO;
+import com.server.pica.dto.RegisterMemberDTO;
 // 새 서비스 구현시 서비스라고 명시해주는걸 잊지말자
 // 복창한다 스프링의 애노테이션은 생명!
 // @Repository 없으면 AutoWired 애노테이션 쓰는코드 반드시 에러남 중요
@@ -81,5 +82,15 @@ public class PicServiceImpl implements PicService {
 	    dto.setPath(UPLOAD_PATH);
 	    return dto;
 	} 
+	
+	@Override
+	public int registerMember(RegisterMemberDTO dto) {
+		//2. DB에 정보입력
+		int result=dao.registerMember(dto);
+		//DB 에러 발생시
+		if(result<0)
+			return UPLOAD_ERROR_DATABASE;
+		return UPLOAD_OK;
+	}
 	
 }

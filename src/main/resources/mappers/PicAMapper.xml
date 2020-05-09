@@ -17,6 +17,14 @@
 	values(#{path},#{file},#{p_member_id},#{p_album_id})
 </insert>
 
+<insert id="createAlbum" parameterType="com.server.pica.dto.CreateAlbumDTO">
+	insert into ALBUM (name, description,defaultPicture,create_p_member_id) VALUES (#{name},#{description},#{defaultPicture},#{create_p_member_id});
+</insert>
+
+<insert id="registerMember" parameterType="com.server.pica.dto.RegisterMemberDTO">
+	insert into MEMBER (nickname, password,email,phonenumber) VALUES (#{nickname},#{password},#{email},#{phonenumber},);
+</insert>
+
 
 
 </mapper>
