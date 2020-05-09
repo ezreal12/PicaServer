@@ -16,10 +16,10 @@ import com.server.pica.dto.PicUploadDTO;
 @Repository
 public class PicServiceImpl implements PicService {
 	//윈도우용 테스트 파일 저장 절대 경로
-	//private static final String UPLOAD_PATH = "C:\\Users\\SiuKim\\Desktop\\sample";
+	private static final String UPLOAD_PATH = "C:\\Users\\SiuKim\\Desktop\\sample";
 	//리눅스용
 	// 주의! : 절대 경로로 파일을 저장할수있는대신 해당 경로에 쓰기권한이 반드시 필요함 chmod 777 filetest
-	private static final String UPLOAD_PATH = "/home/ubuntu/filetest";
+	//private static final String UPLOAD_PATH = "/home/ubuntu/filetest";
 	public static final int UPLOAD_ERROR_FILE = -1;
 	public static final int UPLOAD_ERROR_DATABASE = -2;
 	public static final int UPLOAD_OK = 0;
