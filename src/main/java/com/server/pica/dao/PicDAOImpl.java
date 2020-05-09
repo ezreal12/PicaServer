@@ -12,9 +12,14 @@ import com.server.pica.dto.RegisterMemberDTO;
 @Repository
 public class PicDAOImpl implements PicDAO {
 	
+	/*
+	 * 주의 : insert에 not null 속성등을 빼먹는다던가
+	 * sql문이나 안에 들어간 데이터가 이상하면 바로 ClassNotFoundException 에러를 뿜는데
+	 * 이 에러는 특정 원인을 가르쳐주지 않는 범용적인 에러라 직접 수수께끼 찾기 해야함.
+	 * */
 	// 사용할 맵퍼.xml의 네임스페이스 명
 	private static final String namespace = "com.server.pica.PicAMapper";
-		
+	
 	@Inject // DB 커넷션과 클로즈를 자동으로 해주는 세션
 	private SqlSession sqlSession;
 	
@@ -31,8 +36,14 @@ public class PicDAOImpl implements PicDAO {
 	   return 0;
    }
    // 성공:0 / 실패 -1
+	/*
+	 * 주의 : insert에 not null 속성등을 빼먹는다던가
+	 * sql문이나 안에 들어간 데이터가 이상하면 바로 ClassNotFoundException 에러를 뿜는데
+	 * 이 에러는 특정 원인을 가르쳐주지 않는 범용적인 에러라 직접 수수께끼 찾기 해야함.
+	 * */
 	@Override
 	public int registerMember(RegisterMemberDTO dto) {
+		System.out.println(dto.toString());
 		try {
 			   sqlSession.insert(namespace+".registerMember",dto);
 		} catch (Exception e) {
@@ -42,8 +53,14 @@ public class PicDAOImpl implements PicDAO {
 		   return 0;
 	}
 	// 성공:0 / 파일 저장 실패 -1 / DB 저장 실패 -2
+	/*
+	 * 주의 : insert에 not null 속성등을 빼먹는다던가
+	 * sql문이나 안에 들어간 데이터가 이상하면 바로 ClassNotFoundException 에러를 뿜는데
+	 * 이 에러는 특정 원인을 가르쳐주지 않는 범용적인 에러라 직접 수수께끼 찾기 해야함.
+	 * */
 	@Override
 	public int createAlbum(CreateAlbumDTO dto) {
+		System.out.println(dto.toString());
 		try {
 			   sqlSession.insert(namespace+".createAlbum",dto);
 		} catch (Exception e) {

@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.server.pica.dao.PicDAO;
+import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.RegisterMemberDTO;
+import com.server.pica.util.FileSave;
 // 새 서비스 구현시 서비스라고 명시해주는걸 잊지말자
 // 복창한다 스프링의 애노테이션은 생명!
 // @Repository 없으면 AutoWired 애노테이션 쓰는코드 반드시 에러남 중요
@@ -37,7 +39,7 @@ public class PicServiceImpl implements PicService {
 		dto.setP_album_id(p_album_id);
 		dto.setP_member_id(p_member_id);
 		//1. 파일 저장
-		dto=saveFile(uploadfile,dto);
+		dto=FileSave.saveFile(uploadfile,dto,UPLOAD_PATH);
 		if(dto==null)
 			return UPLOAD_ERROR_FILE;
 		//2. DB에 정보입력
@@ -47,46 +49,28 @@ public class PicServiceImpl implements PicService {
 			return UPLOAD_ERROR_DATABASE;
 		return UPLOAD_OK;
 	}
-	//파일을 저장하고 저장한 정보를 DTO에 담아 리턴 
-	private PicUploadDTO saveFile(MultipartFile file,PicUploadDTO dto){
-		
-		// TODO : 효과적인 로그 저장법을 고민할 필요가 있음
-		
-		File dir = new File(UPLOAD_PATH);
-		// 폴더가 존재하지 않을경우
-		if(!dir.exists()) {
-			//폴더 생성
-			if(!dir.mkdirs()) {
-				// 폴더 생성에서 에러 발생시 로그 남기기
-			}
-		}
-		
-		
-	   
-	    String saveName = file.getOriginalFilename();
-
-	    //logger.info("saveName: {}",saveName);
-	    System.out.println("saveName: {"+saveName+"}");
-
-	    // 저장할 File 객체를 생성(껍데기 파일)ㄴ
-	    File saveFile = new File(UPLOAD_PATH,saveName); // 저장할 폴더 이름, 저장할 파일 이름
-
-	    try {
-	        file.transferTo(saveFile); // 업로드 파일에 saveFile이라는 껍데기 입힘
-	    } catch (IOException e) {
-	    	// 에러 로그 남기기
-	        e.printStackTrace();
-	        return null;
-	    }
-	    dto.setFile(saveName);
-	    dto.setPath(UPLOAD_PATH);
-	    return dto;
-	} 
+	
 	
 	@Override
 	public int registerMember(RegisterMemberDTO dto) {
 		//2. DB에 정보입력
 		int result=dao.registerMember(dto);
+		//DB 에러 발생시
+		if(result<0)
+			return UPLOAD_ERROR_DATABASE;
+		return UPLOAD_OK;
+	}
+	
+	@Override
+	public int createAlbum(CreateAlbumDTO dto,MultipartFile uploadfile) {
+		//1. 파일 저장 realFileName= 서버에 저장된 파일명
+		String realFileName=FileSave.saveFile(uploadfile,UPLOAD_PATH);
+		if(realFileName==null)
+			return UPLOAD_ERROR_FILE;
+		// 서버에 저장된 파일명 dto에 입력
+		dto.setDefaultPicture(realFileName);
+		//2. DB에 정보입력
+		int result=dao.createAlbum(dto);
 		//DB 에러 발생시
 		if(result<0)
 			return UPLOAD_ERROR_DATABASE;

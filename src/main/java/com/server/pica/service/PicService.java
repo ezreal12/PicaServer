@@ -2,6 +2,7 @@ package com.server.pica.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.RegisterMemberDTO;
 
 
@@ -13,7 +14,7 @@ public interface PicService {
 	// 성공:0 / 실패 -1
 	public int registerMember(RegisterMemberDTO dto);
 	// 성공:0 / 파일 저장 실패 -1 / DB 저장 실패 -2
-	//public int createAlbum(CreateAlbumDTO dto);
+	public int createAlbum(CreateAlbumDTO dto,MultipartFile uploadfile);
 	
 	
 }

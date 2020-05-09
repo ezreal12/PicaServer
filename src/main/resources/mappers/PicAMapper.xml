@@ -18,11 +18,13 @@
 </insert>
 
 <insert id="createAlbum" parameterType="com.server.pica.dto.CreateAlbumDTO">
-	insert into ALBUM (name, description,defaultPicture,create_p_member_id) VALUES (#{name},#{description},#{defaultPicture},#{create_p_member_id});
+	insert into ALBUM (name, description,defaultPicture,create_p_member_id) 
+	values(#{name},#{description},#{defaultPicture},#{create_p_member_id})
 </insert>
 
 <insert id="registerMember" parameterType="com.server.pica.dto.RegisterMemberDTO">
-	insert into MEMBER (nickname, password,email,phonenumber) VALUES (#{nickname},#{password},#{email},#{phonenumber},);
+	insert into MEMBER (nickname, password,email,phonenumber) 
+	values(#{nickname},#{password},#{email},#{phonenumber})
 </insert>
 
 
