@@ -15,8 +15,11 @@ import com.server.pica.dto.PicUploadDTO;
 // @Repository 없으면 AutoWired 애노테이션 쓰는코드 반드시 에러남 중요
 @Repository
 public class PicServiceImpl implements PicService {
-	//C:\Users\SiuKim\Desktop\sample
-	private static final String UPLOAD_PATH = "C:\\Users\\SiuKim\\Desktop\\sample";
+	//윈도우용 테스트 파일 저장 절대 경로
+	//private static final String UPLOAD_PATH = "C:\\Users\\SiuKim\\Desktop\\sample";
+	//리눅스용
+	// 주의! : 절대 경로로 파일을 저장할수있는대신 해당 경로에 쓰기권한이 반드시 필요함 chmod 777 filetest
+	private static final String UPLOAD_PATH = "/home/ubuntu/filetest";
 	public static final int UPLOAD_ERROR_FILE = -1;
 	public static final int UPLOAD_ERROR_DATABASE = -2;
 	public static final int UPLOAD_OK = 0;
@@ -45,6 +48,19 @@ public class PicServiceImpl implements PicService {
 	}
 	//파일을 저장하고 저장한 정보를 DTO에 담아 리턴 
 	private PicUploadDTO saveFile(MultipartFile file,PicUploadDTO dto){
+		
+		// TODO : 효과적인 로그 저장법을 고민할 필요가 있음
+		
+		File dir = new File(UPLOAD_PATH);
+		// 폴더가 존재하지 않을경우
+		if(!dir.exists()) {
+			//폴더 생성
+			if(!dir.mkdirs()) {
+				// 폴더 생성에서 에러 발생시 로그 남기기
+			}
+		}
+		
+		
 	   
 	    String saveName = file.getOriginalFilename();
 
@@ -57,6 +73,7 @@ public class PicServiceImpl implements PicService {
 	    try {
 	        file.transferTo(saveFile); // 업로드 파일에 saveFile이라는 껍데기 입힘
 	    } catch (IOException e) {
+	    	// 에러 로그 남기기
 	        e.printStackTrace();
 	        return null;
 	    }

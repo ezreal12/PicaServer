@@ -33,7 +33,7 @@ public class MainCont {
 	//파일 이름에 특수문자가 있거나 길면 (괄호,한국어등) 에러 발생
 	//특정 언어, 특수문자에 관한 처리도 필요
 	@RequestMapping(value = "/picUpload.do",method = RequestMethod.POST)
-	public void upload(int p_member_id,int p_album_id, MultipartFile uploadfile){
+	public String upload(int p_member_id,int p_album_id, MultipartFile uploadfile){
 	    //logger.info("upload() POST 호출");
 	    //logger.info("파일 이름: {}", uploadfile.getOriginalFilename());
 	    //logger.info("파일 크기: {}", uploadfile.getSize());
@@ -44,6 +44,7 @@ public class MainCont {
 		System.out.println("p_album_id : {"+ p_album_id+"}");
 		int result = picService.savePicture(p_member_id, p_album_id, uploadfile);
 		System.out.println("실행결과 : {"+ result+"}");
+		return "실행결과 : {"+ result+"}";
 	}
 
 }
