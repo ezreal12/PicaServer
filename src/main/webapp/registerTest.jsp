@@ -1,12 +1,12 @@
-<%@ page contentType="text/html;charset=euc-kr" %>
+<%@ page contentType="text/html;charset=utf-8"%>
 
-<h1>È¸¿ø°¡ÀÔ Å×½ºÆ®</h1>
+<h1>íšŒì›ê°€ì… í…ŒìŠ¤íŠ¸</h1>
 <form action="registerMember.do", method="post" enctype="multipart/form-data">
-    <p>´Ğ³×ÀÓ(8ÀÚ Á¦ÇÑ) : <input type="text" name="nickname" value="hello"></p>
-    <p>password(¹®ÀÚ) : <input type="text" name="password" value="1234"></p>
-    <p>email(¹®ÀÚ) : <input type="text" name="email" value="test@naver.com"></p>
-    <p>phonenumber(¹®ÀÚ) : <input type="text" name="phonenumber" value="010-1234-5678"></p>
-      <input type="submit" value="Àü¼Û">
+    <p>ë‹‰ë„¤ì„(8ì ì œí•œ) : <input type="text" name="nickname" value="hello"></p>
+    <p>password(ë¬¸ì) : <input type="text" name="password" value="1234"></p>
+    <p>email(ë¬¸ì) : <input type="text" name="email" value="test@naver.com"></p>
+    <p>phonenumber(ë¬¸ì) : <input type="text" name="phonenumber" value="010-1234-5678"></p>
+      <input type="submit" value="ì „ì†¡">
 </form>
 
 <br/>

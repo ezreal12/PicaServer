@@ -40,8 +40,8 @@ public class CreateAlbumDTO {
 	}
 	@Override
 	public String toString() {
-		return "CreateAlbumDTO [album_id=" + album_id + ", name=" + name + ", description=" + description
-				+ ", defaultPicture=" + defaultPicture + ", create_p_member_id=" + create_p_member_id + "]";
+		return "album_id=" + album_id + ", name=" + name + ", description=" + description
+				+ ", defaultPicture=" + defaultPicture + ", create_p_member_id=" + create_p_member_id;
 	}
 	
 	

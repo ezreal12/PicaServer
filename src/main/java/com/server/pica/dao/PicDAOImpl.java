@@ -1,5 +1,7 @@
 package com.server.pica.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -68,6 +70,25 @@ public class PicDAOImpl implements PicDAO {
 			return -1;
 		}
 		   return 0;
+	}
+
+	@Override
+	public List showTable(String tableName) {
+		System.out.println(tableName);
+		if(tableName.equals("PICTURE")) {
+			return sqlSession.selectList(namespace+".showPic");
+		}
+		if(tableName.equals("MEMBER")) {
+			return sqlSession.selectList(namespace+".showMember");
+		}
+		if(tableName.equals("ALBUM")) {
+			return sqlSession.selectList(namespace+".showAlbum");
+		}
+		else {
+			return null;
+		}
+		
+		
 	}
    
    

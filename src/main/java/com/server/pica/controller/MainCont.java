@@ -2,6 +2,8 @@ package com.server.pica.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import com.server.pica.service.PicService;
 @Controller
 @RequestMapping("/")
 public class MainCont {
+	
 	
 	@Autowired
 	PicService picService;
@@ -81,6 +84,39 @@ public class MainCont {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/showTable.do",method = RequestMethod.GET)
+	public ModelAndView showTablePage(){
+		ArrayList<String> table = new ArrayList<String>();
+		table.add("PICTURE");
+		table.add("MEMBER");
+		table.add("ALBUM");
+		ModelAndView mav = new ModelAndView();
+	    mav.setViewName("showTablePage");
+	    mav.addObject("table", table);
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = "/dbResult.do",method = RequestMethod.GET)
+	public ModelAndView showResultPage(String tableName){
+		ArrayList<String> itemString;
+		List list = picService.showTable(tableName);
+		ModelAndView mav = new ModelAndView();
+		if(list==null) {
+			 mav.addObject("err", "err");
+		}
+		else {
+			itemString=new ArrayList<String>();
+			for(Object i : list) {
+				itemString.add(i.toString());
+			}
+			mav.addObject("result", itemString);
+		}
+		
+	    mav.setViewName("dbResultPage");
+	   
+		return mav;
+	}
 	
 	
 }

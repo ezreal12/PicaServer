@@ -35,8 +35,8 @@ public class PicUploadDTO {
 	}
 	@Override
 	public String toString() {
-		return "PicUploadDTO [path=" + path + ", file=" + file + ", p_member_id=" + p_member_id + ", p_album_id="
-				+ p_album_id + "]";
+		return "path=" + path + ", file=" + file + ", p_member_id=" + p_member_id + ", p_album_id="
+				+ p_album_id;
 	}
 	
 	

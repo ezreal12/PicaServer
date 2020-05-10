@@ -1,5 +1,7 @@
 package com.server.pica.dao;
 
+import java.util.List;
+
 import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.RegisterMemberDTO;
@@ -12,6 +14,7 @@ public interface PicDAO {
 	public int registerMember(RegisterMemberDTO dto);
 	// 성공:0 / 파일 저장 실패 -1 / DB 저장 실패 -2
 	public int createAlbum(CreateAlbumDTO dto);
-	
+	// 테이블 이름을 입력받아 select * from tableName 후 결과를 dto로 반환
+	public List showTable(String tableName);
 	
 }

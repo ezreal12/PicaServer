@@ -1,10 +1,10 @@
-<%@ page contentType="text/html;charset=euc-kr" %>
+<%@ page contentType="text/html;charset=utf-8"%>
 
-<h1>¾Ù¹ü Ãß°¡ÇÏ±â Å×½ºÆ® ÆäÀÌÁö</h1>
+<h1>ì•¨ë²” ì¶”ê°€í•˜ê¸° í…ŒìŠ¤íŠ¸ í˜ì´ì§€</h1>
 <form action="createAlbum.do", method="post" enctype="multipart/form-data">
-    <p>name(10ÀÚ Á¦ÇÑ ¹®ÀÚ) : <input type="text" name="name" value="testuser"></p>
-    <p>description(¹®ÀÚ) : <input type="text" name="description" value="Å×½ºÆ® ¾Ù¹ü ÀÔ´Ï ´Ù"></p>
-    <p>create_p_member_id(¼ıÀÚ) : <input type="text" name="create_p_member_id" value="1"></p>
+    <p>name(10ì ì œí•œ ë¬¸ì) : <input type="text" name="name" value="testuser"></p>
+    <p>description(ë¬¸ì) : <input type="text" name="description" value="í…ŒìŠ¤íŠ¸ ì•¨ë²” ì…ë‹ˆ ë‹¤"></p>
+    <p>create_p_member_id(ìˆ«ì) : <input type="text" name="create_p_member_id" value="1"></p>
     <input type="file", name="file" placeholder="select File" /><br/>
     <input type="submit" value="upload">
 </form>

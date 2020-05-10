@@ -43,6 +43,12 @@ public class RegisterMemberDTO {
 	public void setPhonenumber(String phonenumber) {
 		this.phonenumber = phonenumber;
 	}
+
+	@Override
+	public String toString() {
+		return "member_id=" + member_id + ", nickname=" + nickname + ", password=" + password
+				+ ", email=" + email + ", phonenumber=" + phonenumber;
+	}
 	
 	
 }

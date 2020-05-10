@@ -1,3 +1,3 @@
-<%@ page contentType="text/html;charset=euc-kr" %>
-<!-- °á°ú¸¦ È®ÀÎÇÏ±â À§ÇÑ ÆäÀÌÁö -->
-½ÇÇà °á°ú : ${result}
+<%@ page contentType="text/html;charset=utf-8"%>
+<!-- ê²°ê³¼ë¥¼ í™•ì¸í•˜ê¸° ìœ„í•œ íŽ˜ì´ì§€ -->
+ì‹¤í–‰ ê²°ê³¼ : ${result}

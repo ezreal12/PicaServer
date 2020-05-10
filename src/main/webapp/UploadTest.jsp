@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=euc-kr" %>
+<%@ page contentType="text/html;charset=utf-8"%>
 
 <h1>File Upload</h1>
 <form action="picUpload.do", method="post" enctype="multipart/form-data">
