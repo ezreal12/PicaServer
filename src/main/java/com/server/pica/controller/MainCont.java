@@ -1,19 +1,21 @@
 package com.server.pica.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+
 import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.RegisterMemberDTO;
+import com.server.pica.dto.ResultVO;
 import com.server.pica.service.PicService;
 
 
@@ -35,7 +37,8 @@ public class MainCont {
 	//파일 이름에 특수문자가 있거나 길면 (괄호,한국어등) 에러 발생
 	//특정 언어, 특수문자에 관한 처리도 필요
 	@RequestMapping(value = "/picUpload.do",method = RequestMethod.POST)
-	public ModelAndView upload(int p_member_id,int p_album_id, MultipartFile file){
+	@ResponseBody
+	public ResultVO upload(int p_member_id,int p_album_id, MultipartFile file){
 	    //logger.info("upload() POST 호출");
 	    //logger.info("파일 이름: {}", uploadfile.getOriginalFilename());
 	    //logger.info("파일 크기: {}", uploadfile.getSize());
@@ -47,11 +50,9 @@ public class MainCont {
 		int result = picService.savePicture(p_member_id, p_album_id, file);
 		System.out.println("picUpload.do 파일 업로드 실행결과 : {"+ result+"}");
 		
-		ModelAndView mav = new ModelAndView();
-	    mav.setViewName("ResultMoniter");
-	    mav.addObject("result", result);
-		
-		return mav;
+		ResultVO v = new ResultVO();
+		v.setResult(result);
+		return v;
 	}
 
 	/*
@@ -60,14 +61,14 @@ public class MainCont {
 	 * 이 에러는 특정 원인을 가르쳐주지 않는 범용적인 에러라 직접 수수께끼 찾기 해야함.
 	 * */
 	@RequestMapping(value = "/registerMember.do",method = RequestMethod.POST)
-	public ModelAndView registerMember(RegisterMemberDTO dto){
+	@ResponseBody
+	public ResultVO registerMember(RegisterMemberDTO dto){
 		System.out.println("registerMember : "+dto.toString());
 		int result = picService.registerMember(dto);
 		System.out.println("picUpload.do 파일 업로드 실행결과 : {"+ result+"}");
-		ModelAndView mav = new ModelAndView();
-	    mav.setViewName("ResultMoniter");
-	    mav.addObject("result", result);
-		return mav;
+		ResultVO v = new ResultVO();
+		v.setResult(result);
+		return v;
 	}
 	/*
 	 * 주의 : insert에 not null 속성등을 빼먹는다던가
@@ -75,13 +76,13 @@ public class MainCont {
 	 * 이 에러는 특정 원인을 가르쳐주지 않는 범용적인 에러라 직접 수수께끼 찾기 해야함.
 	 * */
 	@RequestMapping(value = "/createAlbum.do",method = RequestMethod.POST)
-	public ModelAndView createAlbum(CreateAlbumDTO dto, MultipartFile file){
+	@ResponseBody
+	public ResultVO createAlbum(CreateAlbumDTO dto, MultipartFile file){
 		System.out.println("createAlbum : "+dto.toString());
 		int result = picService.createAlbum(dto, file);
-		ModelAndView mav = new ModelAndView();
-	    mav.setViewName("ResultMoniter");
-	    mav.addObject("result", result);
-		return mav;
+		ResultVO v = new ResultVO();
+		v.setResult(result);
+		return v;
 	}
 	
 	@RequestMapping(value = "/showTable.do",method = RequestMethod.GET)
