@@ -13,7 +13,7 @@ import com.server.pica.dao.PicDAO;
 import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.RegisterMemberDTO;
-import com.server.pica.util.FileSave;
+import com.server.pica.util.FileUtil;
 // 새 서비스 구현시 서비스라고 명시해주는걸 잊지말자
 // 복창한다 스프링의 애노테이션은 생명!
 // @Repository 없으면 AutoWired 애노테이션 쓰는코드 반드시 에러남 중요
@@ -42,7 +42,7 @@ public class PicServiceImpl implements PicService {
 		dto.setP_album_id(p_album_id);
 		dto.setP_member_id(p_member_id);
 		//1. 파일 저장
-		dto=FileSave.saveFile(uploadfile,dto,savePath);
+		dto=FileUtil.saveFile(uploadfile,dto,savePath);
 		if(dto==null)
 			return UPLOAD_ERROR_FILE;
 		//2. DB에 정보입력
@@ -67,7 +67,7 @@ public class PicServiceImpl implements PicService {
 	@Override
 	public int createAlbum(CreateAlbumDTO dto,MultipartFile uploadfile,String savePath) {
 		//1. 파일 저장 realFileName= 서버에 저장된 파일명
-		String realFileName=FileSave.saveFile(uploadfile,savePath);
+		String realFileName=FileUtil.saveFile(uploadfile,savePath);
 		if(realFileName==null)
 			return UPLOAD_ERROR_FILE;
 		// 서버에 저장된 파일명 dto에 입력

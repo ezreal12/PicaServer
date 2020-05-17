@@ -20,6 +20,7 @@ import com.server.pica.dto.RegisterMemberDTO;
 import com.server.pica.dto.ResultVO;
 import com.server.pica.service.PicService;
 import com.server.pica.service.PicServiceImpl;
+import com.server.pica.util.FileUtil;
 
 
 
@@ -85,6 +86,7 @@ public class MainCont {
 	
 	@RequestMapping(value = "/showTable.do",method = RequestMethod.GET)
 	public ModelAndView showTablePage(){
+		
 		ArrayList<String> table = new ArrayList<String>();
 		table.add("PICTURE");
 		table.add("MEMBER");
@@ -98,14 +100,16 @@ public class MainCont {
 	///myAlbum.do?member_id=##
 	@RequestMapping(value = "/myAlbum.do",method = RequestMethod.GET)
 	@ResponseBody
-	public MyAlbumResultVO myAlbum(int member_id) {
+	public MyAlbumResultVO myAlbum(int member_id,HttpServletRequest request) {
 		System.out.println("myAlbum.do : "+member_id);
+		
 		MyAlbumResultVO resultVO = new MyAlbumResultVO();
 		List<CreateAlbumDTO> list = picService.getMyalbum(member_id);
 		if(list==null) {
 			resultVO.setCode(PicServiceImpl.NOT_FOUND_DATA);
 		}
 		else {
+			list = FileUtil.insertServerUrlInImages(list, request);
 			resultVO.setResult(list);
 			resultVO.setCode(PicServiceImpl.UPLOAD_OK);
 		}

@@ -38,9 +38,10 @@
 <select id='showMember' resultType="com.server.pica.dto.RegisterMemberDTO">
 	 select * from MEMBER
 </select>
-
+<!-- 명령어 끝에 세미콜론 뺄것 (중요하진않음) -->
+<!-- (중요함 )윈도우에선 테이블 이름 대소문자 구분 안하는데 리눅스는 함. 대문자로 쓸것.-->
 <select id='myAlbum' parameterType="int" resultType="com.server.pica.dto.CreateAlbumDTO">
-	 select * from album where create_p_member_id=#{create_p_member_id};
+	 select * from ALBUM where create_p_member_id=#{create_p_member_id}
 </select>
 
 </mapper>

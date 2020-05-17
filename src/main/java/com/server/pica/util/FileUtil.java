@@ -2,12 +2,18 @@ package com.server.pica.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 
-public class FileSave {
+public class FileUtil {
+		
+		private static final String IMAGE_SRC = "/resource/";
 		//파일을 저장하고 저장한 정보를 DTO에 담아 리턴 
 		public static PicUploadDTO saveFile(MultipartFile file,PicUploadDTO dto,String uploadPath){
 			// TODO : 효과적인 로그 저장법을 고민할 필요가 있음
@@ -66,5 +72,16 @@ public class FileSave {
 		    }
 		    return saveName;
 		} 
-		
+		// 앨범 DTO의 리스트를 입력받아 해당 리스트의 DTO 파일 경로에 서버 주소를 추가해서 리턴한다.
+		public static List<CreateAlbumDTO> insertServerUrlInImages(List<CreateAlbumDTO> list,HttpServletRequest request){
+			if(list==null) return null;
+			
+			for(CreateAlbumDTO e : list) {
+				if(e.getDefaultPicture()==null) continue;
+				String url = request.getRequestURL().toString().replace(request.getRequestURI(),"");
+				url= url+request.getContextPath()+IMAGE_SRC;
+				e.setDefaultPicture(url+e.getDefaultPicture());
+			}
+			return list;
+		}
 }
