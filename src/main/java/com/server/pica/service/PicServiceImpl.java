@@ -23,7 +23,7 @@ public class PicServiceImpl implements PicService {
 	//private static final String UPLOAD_PATH = "C:\\Users\\SiuKim\\Desktop\\sample";
 	//리눅스용
 	// 주의! : 절대 경로로 파일을 저장할수있는대신 해당 경로에 쓰기권한이 반드시 필요함 chmod 777 filetest
-	private static final String UPLOAD_PATH = "/home/ubuntu/filetest";
+	
 	public static final int UPLOAD_ERROR_FILE = -1;
 	public static final int UPLOAD_ERROR_DATABASE = -2;
 	public static final int UPLOAD_OK = 0;
@@ -35,12 +35,12 @@ public class PicServiceImpl implements PicService {
 		// 성공:0 / 파일 저장실패 -1 / DB에러 : -2
 	
 	@Override
-	public int savePicture(int p_member_id, int p_album_id, MultipartFile uploadfile) {
+	public int savePicture(int p_member_id, int p_album_id, MultipartFile uploadfile,String savePath) {
 		PicUploadDTO dto = new PicUploadDTO();
 		dto.setP_album_id(p_album_id);
 		dto.setP_member_id(p_member_id);
 		//1. 파일 저장
-		dto=FileSave.saveFile(uploadfile,dto,UPLOAD_PATH);
+		dto=FileSave.saveFile(uploadfile,dto,savePath);
 		if(dto==null)
 			return UPLOAD_ERROR_FILE;
 		//2. DB에 정보입력
@@ -63,9 +63,9 @@ public class PicServiceImpl implements PicService {
 	}
 	
 	@Override
-	public int createAlbum(CreateAlbumDTO dto,MultipartFile uploadfile) {
+	public int createAlbum(CreateAlbumDTO dto,MultipartFile uploadfile,String savePath) {
 		//1. 파일 저장 realFileName= 서버에 저장된 파일명
-		String realFileName=FileSave.saveFile(uploadfile,UPLOAD_PATH);
+		String realFileName=FileSave.saveFile(uploadfile,savePath);
 		if(realFileName==null)
 			return UPLOAD_ERROR_FILE;
 		// 서버에 저장된 파일명 dto에 입력

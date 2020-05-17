@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,18 +39,11 @@ public class MainCont {
 	//특정 언어, 특수문자에 관한 처리도 필요
 	@RequestMapping(value = "/picUpload.do",method = RequestMethod.POST)
 	@ResponseBody
-	public ResultVO upload(int p_member_id,int p_album_id, MultipartFile file){
-	    //logger.info("upload() POST 호출");
-	    //logger.info("파일 이름: {}", uploadfile.getOriginalFilename());
-	    //logger.info("파일 크기: {}", uploadfile.getSize());
-		System.out.println("upload() POST 호출");
-		System.out.println("파일 이름: {"+file.getOriginalFilename()+"}");
-		System.out.println("파일 크기: {"+ file.getSize()+"}");
-		System.out.println("p_member_id : {"+p_member_id+"}");
-		System.out.println("p_album_id : {"+ p_album_id+"}");
-		int result = picService.savePicture(p_member_id, p_album_id, file);
+	public ResultVO upload(int p_member_id,int p_album_id, MultipartFile file,HttpServletRequest request){
+		String savePath = request.getSession().getServletContext().getRealPath("/resource");
+		int result = picService.savePicture(p_member_id, p_album_id, file,savePath);
 		System.out.println("picUpload.do 파일 업로드 실행결과 : {"+ result+"}");
-		
+		System.out.println("picUpload.do : "+savePath);
 		ResultVO v = new ResultVO();
 		v.setResult(result);
 		return v;
@@ -77,9 +71,11 @@ public class MainCont {
 	 * */
 	@RequestMapping(value = "/createAlbum.do",method = RequestMethod.POST)
 	@ResponseBody
-	public ResultVO createAlbum(CreateAlbumDTO dto, MultipartFile file){
+	public ResultVO createAlbum(CreateAlbumDTO dto, MultipartFile file,HttpServletRequest request){
 		System.out.println("createAlbum : "+dto.toString());
-		int result = picService.createAlbum(dto, file);
+		String savePath = request.getSession().getServletContext().getRealPath("/resource");
+		System.out.println("createAlbum : "+savePath);
+		int result = picService.createAlbum(dto, file,savePath);
 		ResultVO v = new ResultVO();
 		v.setResult(result);
 		return v;
