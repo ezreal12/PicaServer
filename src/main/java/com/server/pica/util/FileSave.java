@@ -35,7 +35,6 @@ public class FileSave {
 		        return null;
 		    }
 		    dto.setFile(saveName);
-		    dto.setPath(uploadPath);
 		    return dto;
 		} 
 		

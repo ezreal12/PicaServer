@@ -1,8 +1,6 @@
 package com.server.pica.dto;
 
 public class PicUploadDTO {
-	// 파일 저장경로
-	private String path;
 	// 파일 이름
 	private String file;
 		
@@ -21,12 +19,7 @@ public class PicUploadDTO {
 	public void setP_album_id(int p_album_id) {
 		this.p_album_id = p_album_id;
 	}
-	public String getPath() {
-		return path;
-	}
-	public void setPath(String path) {
-		this.path = path;
-	}
+	
 	public String getFile() {
 		return file;
 	}
@@ -35,7 +28,7 @@ public class PicUploadDTO {
 	}
 	@Override
 	public String toString() {
-		return "path=" + path + ", file=" + file + ", p_member_id=" + p_member_id + ", p_album_id="
+		return "file=" + file + ", p_member_id=" + p_member_id + ", p_album_id="
 				+ p_album_id;
 	}
 	

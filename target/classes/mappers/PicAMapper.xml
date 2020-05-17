@@ -13,8 +13,8 @@
 </select>
 <!-- 직접 dto를 지정하려면 풀패키지 이름으로 -->
 <insert id="uploadPic" parameterType="com.server.pica.dto.PicUploadDTO">
-	insert into PICTURE (path, file,p_member_id,p_album_id) 
-	values(#{path},#{file},#{p_member_id},#{p_album_id})
+	insert into PICTURE (file,p_member_id,p_album_id) 
+	values(#{file},#{p_member_id},#{p_album_id})
 </insert>
 
 <insert id="createAlbum" parameterType="com.server.pica.dto.CreateAlbumDTO">
