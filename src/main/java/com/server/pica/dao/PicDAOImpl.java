@@ -87,10 +87,13 @@ public class PicDAOImpl implements PicDAO {
 		else {
 			return null;
 		}
-		
-		
 	}
    
+	@Override
+	public List<CreateAlbumDTO> getMyalbum(int create_p_member_id) {
+		System.out.println("create_p_member_id: "+create_p_member_id);
+		return sqlSession.selectList(namespace+".myAlbum",create_p_member_id);
+	}
    
    
    

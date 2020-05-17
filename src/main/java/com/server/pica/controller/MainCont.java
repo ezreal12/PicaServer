@@ -15,9 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.server.pica.dto.CreateAlbumDTO;
+import com.server.pica.dto.MyAlbumResultVO;
 import com.server.pica.dto.RegisterMemberDTO;
 import com.server.pica.dto.ResultVO;
 import com.server.pica.service.PicService;
+import com.server.pica.service.PicServiceImpl;
 
 
 
@@ -91,6 +93,23 @@ public class MainCont {
 	    mav.setViewName("showTablePage");
 	    mav.addObject("table", table);
 		return mav;
+	}
+	
+	///myAlbum.do?member_id=##
+	@RequestMapping(value = "/myAlbum.do",method = RequestMethod.GET)
+	@ResponseBody
+	public MyAlbumResultVO myAlbum(int member_id) {
+		System.out.println("myAlbum.do : "+member_id);
+		MyAlbumResultVO resultVO = new MyAlbumResultVO();
+		List<CreateAlbumDTO> list = picService.getMyalbum(member_id);
+		if(list==null) {
+			resultVO.setCode(PicServiceImpl.NOT_FOUND_DATA);
+		}
+		else {
+			resultVO.setResult(list);
+			resultVO.setCode(PicServiceImpl.UPLOAD_OK);
+		}
+		return resultVO;
 	}
 	
 	
