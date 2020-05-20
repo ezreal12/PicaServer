@@ -44,4 +44,8 @@
 	 select * from ALBUM where create_p_member_id=#{create_p_member_id}
 </select>
 
+<select id='getNickNameFromId' parameterType="int" resultType="String">
+	 select nickname from MEMBER where member_id=#{member_id}
+</select>
+
 </mapper>

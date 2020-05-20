@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.server.pica.dto.CreateAlbumDTO;
+import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.MyAlbumResultVO;
 import com.server.pica.dto.RegisterMemberDTO;
 import com.server.pica.dto.ResultVO;
@@ -104,7 +105,7 @@ public class MainCont {
 		System.out.println("myAlbum.do : "+member_id);
 		
 		MyAlbumResultVO resultVO = new MyAlbumResultVO();
-		List<CreateAlbumDTO> list = picService.getMyalbum(member_id);
+		List<MyAlbumDTO> list = picService.getMyalbum(member_id);
 		if(list==null) {
 			resultVO.setCode(PicServiceImpl.NOT_FOUND_DATA);
 		}

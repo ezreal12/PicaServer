@@ -6,7 +6,7 @@ import java.util.List;
 public class MyAlbumResultVO {
 	// 조회결과 -1이면 결과없음 0이면 조회 성공
 	private int code;
-	private List<CreateAlbumDTO> result;
+	private List<MyAlbumDTO> result;
 	
 	public int getCode() {
 		return code;
@@ -14,10 +14,10 @@ public class MyAlbumResultVO {
 	public void setCode(int code) {
 		this.code = code;
 	}
-	public List<CreateAlbumDTO> getResult() {
+	public List<MyAlbumDTO> getResult() {
 		return result;
 	}
-	public void setResult(List<CreateAlbumDTO> result) {
+	public void setResult(List<MyAlbumDTO> result) {
 		this.result = result;
 	}
 	

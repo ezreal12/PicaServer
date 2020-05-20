@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.server.pica.dto.CreateAlbumDTO;
+import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.RegisterMemberDTO;
 
 
@@ -20,5 +21,5 @@ public interface PicService {
 	// 테이블 이름을 입력받아 select * from tableName 후 결과를 dto로 반환
 	public List showTable(String tableName);
 	// 내 앨범 조회
-	public List<CreateAlbumDTO> getMyalbum(int create_p_member_id);
+	public List<MyAlbumDTO> getMyalbum(int create_p_member_id);
 }

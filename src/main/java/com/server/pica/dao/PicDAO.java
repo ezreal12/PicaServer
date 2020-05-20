@@ -18,5 +18,7 @@ public interface PicDAO {
 	public List showTable(String tableName);
 	// 내 앨범 조회
 	public List<CreateAlbumDTO> getMyalbum(int create_p_member_id);
+	// 유저 ID로 닉네임 가져오기
+	public String getNickNameFromId(int member_id);
 	
 }

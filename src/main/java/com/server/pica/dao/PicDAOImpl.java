@@ -94,7 +94,11 @@ public class PicDAOImpl implements PicDAO {
 		System.out.println("create_p_member_id: "+create_p_member_id);
 		return sqlSession.selectList(namespace+".myAlbum",create_p_member_id);
 	}
-   
+	// 유저 ID로 닉네임 가져오기
+	@Override
+	public String getNickNameFromId(int member_id) {
+		return (String)sqlSession.selectOne(namespace+".getNickNameFromId", member_id);
+	}
    
    
    

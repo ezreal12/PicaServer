@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.server.pica.dto.CreateAlbumDTO;
+import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 
 public class FileUtil {
@@ -73,10 +74,10 @@ public class FileUtil {
 		    return saveName;
 		} 
 		// 앨범 DTO의 리스트를 입력받아 해당 리스트의 DTO 파일 경로에 서버 주소를 추가해서 리턴한다.
-		public static List<CreateAlbumDTO> insertServerUrlInImages(List<CreateAlbumDTO> list,HttpServletRequest request){
+		public static List<MyAlbumDTO> insertServerUrlInImages(List<MyAlbumDTO> list,HttpServletRequest request){
 			if(list==null) return null;
 			
-			for(CreateAlbumDTO e : list) {
+			for(MyAlbumDTO e : list) {
 				if(e.getDefaultPicture()==null) continue;
 				String url = request.getRequestURL().toString().replace(request.getRequestURI(),"");
 				url= url+request.getContextPath()+IMAGE_SRC;

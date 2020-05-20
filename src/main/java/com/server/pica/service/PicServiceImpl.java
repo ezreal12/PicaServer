@@ -2,6 +2,7 @@ package com.server.pica.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.server.pica.dao.PicDAO;
 import com.server.pica.dto.CreateAlbumDTO;
+import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.RegisterMemberDTO;
 import com.server.pica.util.FileUtil;
@@ -86,8 +88,16 @@ public class PicServiceImpl implements PicService {
 	}
 	
 	@Override
-	public List<CreateAlbumDTO> getMyalbum(int create_p_member_id) {
-		return dao.getMyalbum(create_p_member_id);
+	public List<MyAlbumDTO> getMyalbum(int create_p_member_id) {
+		List<CreateAlbumDTO> list = dao.getMyalbum(create_p_member_id);
+		if (list==null) return null;
+		List<MyAlbumDTO> result = new ArrayList<MyAlbumDTO>();
+		for(CreateAlbumDTO d : list) {
+			String nick = dao.getNickNameFromId(d.getCreate_p_member_id());
+			MyAlbumDTO data = new MyAlbumDTO(d, nick);
+			result.add(data);
+		}
+		return result;
 	}
 	
 }
