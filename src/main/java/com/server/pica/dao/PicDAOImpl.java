@@ -28,16 +28,37 @@ public class PicDAOImpl implements PicDAO {
 	
 	// 데이터베이스에 업로드된 사진 dto 삽입하기
 	// 결과는 정수값으로 리턴해줌 성공:0 / 실패 -1
+	// 1. 사진 관련 데이터를 받아 입력
+	// 2. 태그 데이터가 있을경우 태그 데이터도 입력 / 없으면 넘어감.
    @Override
-   public int insertPicData(PicUploadDTO dto) {
+   public int insertPicData(PicUploadDTO dto,List<String> tags) {
 	   try {
 		   sqlSession.insert(namespace+".uploadPic",dto);
 	} catch (Exception e) {
 		e.printStackTrace();
 		return -1;
 	}
+	   // 입력받은 태그가 있으면 입력
+	   if(tags!=null) {
+		   for(String tag : tags) {
+			   // 1. 태그 중복확인
+			   Object result = sqlSession.selectOne(namespace+".getTagIdFromTag",tag);
+			   // 2. 태그가 존재하지 않을경우 입력
+			   if(result==null) {
+			   	try {
+			   		 sqlSession.insert(namespace+".uploadTagOne",tag);
+			   	} catch (Exception e) {
+			   		e.printStackTrace();
+			   		// DB 에러시 -2 리턴
+			   		return -2;
+			   	}
+			   } 
+		   }
+	   }
 	   return 0;
    }
+   
+ 
    // 성공:0 / 실패 -1
 	/*
 	 * 주의 : insert에 not null 속성등을 빼먹는다던가

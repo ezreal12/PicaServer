@@ -13,8 +13,8 @@
 </select>
 <!-- 직접 dto를 지정하려면 풀패키지 이름으로 -->
 <insert id="uploadPic" parameterType="com.server.pica.dto.PicUploadDTO">
-	insert into PICTURE (file,p_member_id,p_album_id) 
-	values(#{file},#{p_member_id},#{p_album_id})
+	insert into PICTURE (file,latitude,longitude,contents,p_member_id,p_album_id) 
+	values (#{file},#{latitude},#{longitude},#{contents},#{p_member_id},#{p_album_id})
 </insert>
 
 <insert id="createAlbum" parameterType="com.server.pica.dto.CreateAlbumDTO">
@@ -51,5 +51,14 @@
 <select id='showPicture' parameterType="int" resultType="com.server.pica.dto.PictureDTO">
 	 select * from PICTURE where p_album_id=#{album_id}
 </select>
+<!-- 태그 내용 입력받아서 해당 태그 ID 가져오기 -->
+<select id='getTagIdFromTag' parameterType="String" resultType="int">
+	 select tag_id from TAGS where tags=#{tags}
+</select>
+
+<!-- 태그 1개 업로드하기 -->
+<insert id="uploadTagOne" parameterType="String">
+	insert into TAGS (tags) VALUES (#{tags});
+</insert>
 
 </mapper>

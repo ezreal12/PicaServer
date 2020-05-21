@@ -15,8 +15,8 @@ import com.server.pica.dto.PictureDTO;
 import com.server.pica.dto.ShowPictureResultVO;
 
 public class FileUtil {
-		
-		private static final String IMAGE_SRC = "/resource/";
+		private static final String IMAGE_SRC = "/resource";
+		private static final String IMAGE_PATH = IMAGE_SRC+"/";
 		//파일을 저장하고 저장한 정보를 DTO에 담아 리턴 
 		public static PicUploadDTO saveFile(MultipartFile file,PicUploadDTO dto,String uploadPath){
 			// TODO : 효과적인 로그 저장법을 고민할 필요가 있음
@@ -98,7 +98,12 @@ public class FileUtil {
 		// 파일 이름을 입력받아서 웹서버경로+파일 이름으로 된 최종경로 리턴하기
 		private static String parseImageSrc(String fileName,HttpServletRequest request) {
 			String url = request.getRequestURL().toString().replace(request.getRequestURI(),"");
-			url= url+request.getContextPath()+IMAGE_SRC;
+			url= url+request.getContextPath()+IMAGE_PATH;
 			return url+fileName;
+		}
+		
+		// HttpServletRequest을 입력받아 파일 저장경로 리턴하기
+		public static String getFileSavePath(HttpServletRequest request) {
+			return request.getSession().getServletContext().getRealPath(IMAGE_SRC);
 		}
 }

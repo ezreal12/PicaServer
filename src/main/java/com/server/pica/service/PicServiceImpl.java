@@ -18,6 +18,7 @@ import com.server.pica.dto.PictureDTO;
 import com.server.pica.dto.RegisterMemberDTO;
 import com.server.pica.dto.ShowPictureResultVO;
 import com.server.pica.util.FileUtil;
+import com.server.pica.util.StringUtil;
 // 새 서비스 구현시 서비스라고 명시해주는걸 잊지말자
 // 복창한다 스프링의 애노테이션은 생명!
 // @Repository 없으면 AutoWired 애노테이션 쓰는코드 반드시 에러남 중요
@@ -42,19 +43,25 @@ public class PicServiceImpl implements PicService {
 		// 성공:0 / 파일 저장실패 -1 / DB에러 : -2
 	
 	@Override
-	public int savePicture(int p_member_id, int p_album_id, MultipartFile uploadfile,String savePath) {
-		PicUploadDTO dto = new PicUploadDTO();
-		dto.setP_album_id(p_album_id);
-		dto.setP_member_id(p_member_id);
+	public int savePicture(PicUploadDTO dto,String tags, MultipartFile uploadfile,String savePath) {
+		//insertPicData(PicUploadDTO dto,List<String> tags);
 		//1. 파일 저장
 		dto=FileUtil.saveFile(uploadfile,dto,savePath);
 		if(dto==null)
 			return UPLOAD_ERROR_FILE;
+		List<String> tagList;
+		if(tags==null) tagList=null;
+		else {
+			// DB 들어가기 전 tag 파싱하기
+			tagList = StringUtil.insertTags(tags);
+		}		
 		//2. DB에 정보입력
-		int result=dao.insertPicData(dto);
+		int result=dao.insertPicData(dto,tagList);		
 		//DB 에러 발생시
-		if(result<0)
+		if(result<0) {
+			System.out.println("! -- insertPicData 태그 입력 DB 에러 코드 : "+result);
 			return ERROR_DATABASE;
+		}
 		return REQUEST_OK;
 	}
 	
