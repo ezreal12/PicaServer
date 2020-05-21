@@ -11,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
+import com.server.pica.dto.PictureDTO;
+import com.server.pica.dto.ShowPictureResultVO;
 
 public class FileUtil {
 		
@@ -75,14 +77,28 @@ public class FileUtil {
 		} 
 		// 앨범 DTO의 리스트를 입력받아 해당 리스트의 DTO 파일 경로에 서버 주소를 추가해서 리턴한다.
 		public static List<MyAlbumDTO> insertServerUrlInImages(List<MyAlbumDTO> list,HttpServletRequest request){
-			if(list==null) return null;
-			
+			if(list==null) return null;		
 			for(MyAlbumDTO e : list) {
 				if(e.getDefaultPicture()==null) continue;
-				String url = request.getRequestURL().toString().replace(request.getRequestURI(),"");
-				url= url+request.getContextPath()+IMAGE_SRC;
-				e.setDefaultPicture(url+e.getDefaultPicture());
+				e.setDefaultPicture(parseImageSrc(e.getDefaultPicture(),request));
 			}
 			return list;
+		}
+		// 앨범 DTO의 리스트를 입력받아 해당 리스트의 DTO 파일 경로에 서버 주소를 추가해서 리턴한다.
+		public static ShowPictureResultVO insertServerUrlInImages(ShowPictureResultVO vo,HttpServletRequest request){
+			List<PictureDTO> list = vo.getResult();
+			if(list==null) return null;
+			for(PictureDTO e : list) {
+				if(e.getFile()==null) continue;
+				e.setFile(parseImageSrc(e.getFile(),request));
+			}
+			vo.setResult(list);
+			return vo;
+		}
+		// 파일 이름을 입력받아서 웹서버경로+파일 이름으로 된 최종경로 리턴하기
+		private static String parseImageSrc(String fileName,HttpServletRequest request) {
+			String url = request.getRequestURL().toString().replace(request.getRequestURI(),"");
+			url= url+request.getContextPath()+IMAGE_SRC;
+			return url+fileName;
 		}
 }

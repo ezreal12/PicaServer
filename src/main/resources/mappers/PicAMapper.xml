@@ -48,4 +48,8 @@
 	 select nickname from MEMBER where member_id=#{member_id}
 </select>
 
+<select id='showPicture' parameterType="int" resultType="com.server.pica.dto.PictureDTO">
+	 select * from PICTURE where p_album_id=#{album_id}
+</select>
+
 </mapper>

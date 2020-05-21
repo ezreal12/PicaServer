@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
+import com.server.pica.dto.PictureDTO;
 import com.server.pica.dto.RegisterMemberDTO;
 //@Repository 없으면 AutoWired 애노테이션 쓰는코드 반드시 에러남 중요
 @Repository
@@ -100,6 +101,11 @@ public class PicDAOImpl implements PicDAO {
 		return (String)sqlSession.selectOne(namespace+".getNickNameFromId", member_id);
 	}
    
-   
+	// 앨범 id를 입력받고 앨범에 들어있는 사진 데이터 전부 가져오기
+	@Override
+	public List<PictureDTO> showPicture(int album_id) {
+		System.out.println("showPicture album_id: "+album_id);
+		return sqlSession.selectList(namespace+".showPicture",album_id);
+	}
    
 }

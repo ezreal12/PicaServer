@@ -19,6 +19,7 @@ import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.MyAlbumResultVO;
 import com.server.pica.dto.RegisterMemberDTO;
 import com.server.pica.dto.ResultVO;
+import com.server.pica.dto.ShowPictureResultVO;
 import com.server.pica.service.PicService;
 import com.server.pica.service.PicServiceImpl;
 import com.server.pica.util.FileUtil;
@@ -112,10 +113,19 @@ public class MainCont {
 		else {
 			list = FileUtil.insertServerUrlInImages(list, request);
 			resultVO.setResult(list);
-			resultVO.setCode(PicServiceImpl.UPLOAD_OK);
+			resultVO.setCode(PicServiceImpl.REQUEST_OK);
 		}
 		return resultVO;
 	}
+	@RequestMapping(value = "/showPicture.do",method = RequestMethod.GET)
+	@ResponseBody
+	public ShowPictureResultVO showPicture(int album_id,int member_id,HttpServletRequest request) {
+		System.out.println("showPicture.do : album_id : "+album_id+" member_id :"+member_id);
+		ShowPictureResultVO result = picService.showPicture(album_id, member_id);
+		result = FileUtil.insertServerUrlInImages(result, request);
+		return result;
+	}
+	
 	
 	
 	@RequestMapping(value = "/dbResult.do",method = RequestMethod.GET)
@@ -138,6 +148,10 @@ public class MainCont {
 	   
 		return mav;
 	}
+	
+	
+	
+	
 	
 	
 }

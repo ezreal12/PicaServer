@@ -14,7 +14,9 @@ import com.server.pica.dao.PicDAO;
 import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
+import com.server.pica.dto.PictureDTO;
 import com.server.pica.dto.RegisterMemberDTO;
+import com.server.pica.dto.ShowPictureResultVO;
 import com.server.pica.util.FileUtil;
 // 새 서비스 구현시 서비스라고 명시해주는걸 잊지말자
 // 복창한다 스프링의 애노테이션은 생명!
@@ -29,8 +31,9 @@ public class PicServiceImpl implements PicService {
 	public static final int UPLOAD_ERROR_FILE = -1;
 	// DB에서 데이터를 찾지 못했을때 (select에서 값이 안나왔을때)
 	public static final int NOT_FOUND_DATA = -1;
-	public static final int UPLOAD_ERROR_DATABASE = -2;
-	public static final int UPLOAD_OK = 0;
+	public static final int ERROR_DATABASE = -2;
+	public static final int NO_PERMISSOIN = -3;
+	public static final int REQUEST_OK = 0;
 	@Autowired
 	PicDAO dao;
 
@@ -51,8 +54,8 @@ public class PicServiceImpl implements PicService {
 		int result=dao.insertPicData(dto);
 		//DB 에러 발생시
 		if(result<0)
-			return UPLOAD_ERROR_DATABASE;
-		return UPLOAD_OK;
+			return ERROR_DATABASE;
+		return REQUEST_OK;
 	}
 	
 	
@@ -62,8 +65,8 @@ public class PicServiceImpl implements PicService {
 		int result=dao.registerMember(dto);
 		//DB 에러 발생시
 		if(result<0)
-			return UPLOAD_ERROR_DATABASE;
-		return UPLOAD_OK;
+			return ERROR_DATABASE;
+		return REQUEST_OK;
 	}
 	
 	@Override
@@ -78,8 +81,8 @@ public class PicServiceImpl implements PicService {
 		int result=dao.createAlbum(dto);
 		//DB 에러 발생시
 		if(result<0)
-			return UPLOAD_ERROR_DATABASE;
-		return UPLOAD_OK;
+			return ERROR_DATABASE;
+		return REQUEST_OK;
 	}
 	
 	@Override
@@ -97,6 +100,30 @@ public class PicServiceImpl implements PicService {
 			MyAlbumDTO data = new MyAlbumDTO(d, nick);
 			result.add(data);
 		}
+		return result;
+	}
+	// 앨범 id를 입력받고 앨범에 들어있는 사진 데이터 전부 가져오기
+	// 0 성공(), -1 앨범없음, -2 가져오기 실패, -3 권한없음
+	@Override
+	public ShowPictureResultVO showPicture(int album_id,int member_id) {
+		ShowPictureResultVO result=new ShowPictureResultVO();
+		List<PictureDTO> list = dao.showPicture(album_id);
+		if (list==null) {
+			result.setCode(NOT_FOUND_DATA);
+			return result;
+		}
+		/*
+		 * TODO : member_id는 p_member_id의 값으로 확인 (추후에 친구초대 기능구현시 AlbumMember에서 찾아야함)
+			내 앨범보기도 create_p_member_id가 아닌 AlbumMember에서 찾아야함 
+		 * */
+		// 임시로 멤버 ID가 맞는지 확인해서 인증
+		int pMemberID = list.get(0).getP_member_id();
+		if(pMemberID!=member_id) {
+			result.setCode(NO_PERMISSOIN);
+			return result;
+		}
+		result.setCode(REQUEST_OK);
+		result.setResult(list);
 		return result;
 	}
 	

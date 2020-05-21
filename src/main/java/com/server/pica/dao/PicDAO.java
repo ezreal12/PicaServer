@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
+import com.server.pica.dto.PictureDTO;
 import com.server.pica.dto.RegisterMemberDTO;
 
 public interface PicDAO {
@@ -20,5 +21,6 @@ public interface PicDAO {
 	public List<CreateAlbumDTO> getMyalbum(int create_p_member_id);
 	// 유저 ID로 닉네임 가져오기
 	public String getNickNameFromId(int member_id);
-	
+	// 앨범 id를 입력받고 앨범에 들어있는 사진 데이터 전부 가져오기
+	public List<PictureDTO> showPicture(int album_id);
 }
