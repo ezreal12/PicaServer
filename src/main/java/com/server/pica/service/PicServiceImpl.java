@@ -116,7 +116,7 @@ public class PicServiceImpl implements PicService {
 	public ShowPictureResultVO showPictureList(int album_id,int member_id) {
 		ShowPictureResultVO result=new ShowPictureResultVO();
 		List<PictureDTO> list = dao.showPictureList(album_id);
-		if (list==null) {
+		if (list==null||list.size()==0) {
 			result.setCode(NOT_FOUND_DATA);
 			return result;
 		}
