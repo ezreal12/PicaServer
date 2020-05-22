@@ -8,6 +8,7 @@ import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.RegisterMemberDTO;
+import com.server.pica.dto.ShowPictureDataResultVO;
 import com.server.pica.dto.ShowPictureResultVO;
 
 
@@ -25,6 +26,7 @@ public interface PicService {
 	// 내 앨범 조회
 	public List<MyAlbumDTO> getMyalbum(int create_p_member_id);
 	// 앨범 id를 입력받고 앨범에 들어있는 사진 데이터 전부 가져오기
-	public ShowPictureResultVO showPicture(int album_id,int member_id);
-	
+	public ShowPictureResultVO showPictureList(int album_id,int member_id);
+	// 사진 id를 입력받고 사진 1개 조회해서 리턴하기
+	public ShowPictureDataResultVO showPicture(int picture_id,int member_id);
 }

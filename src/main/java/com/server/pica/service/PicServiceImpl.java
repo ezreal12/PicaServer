@@ -16,6 +16,7 @@ import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.PictureDTO;
 import com.server.pica.dto.RegisterMemberDTO;
+import com.server.pica.dto.ShowPictureDataResultVO;
 import com.server.pica.dto.ShowPictureResultVO;
 import com.server.pica.util.FileUtil;
 import com.server.pica.util.StringUtil;
@@ -112,9 +113,9 @@ public class PicServiceImpl implements PicService {
 	// 앨범 id를 입력받고 앨범에 들어있는 사진 데이터 전부 가져오기
 	// 0 성공(), -1 앨범없음, -2 가져오기 실패, -3 권한없음
 	@Override
-	public ShowPictureResultVO showPicture(int album_id,int member_id) {
+	public ShowPictureResultVO showPictureList(int album_id,int member_id) {
 		ShowPictureResultVO result=new ShowPictureResultVO();
-		List<PictureDTO> list = dao.showPicture(album_id);
+		List<PictureDTO> list = dao.showPictureList(album_id);
 		if (list==null) {
 			result.setCode(NOT_FOUND_DATA);
 			return result;
@@ -131,6 +132,28 @@ public class PicServiceImpl implements PicService {
 		}
 		result.setCode(REQUEST_OK);
 		result.setResult(list);
+		return result;
+	}
+	// 사진 id를 입력받고 사진 1개 조회해서 리턴하기
+	@Override
+	public ShowPictureDataResultVO showPicture(int picture_id, int member_id) {
+		ShowPictureDataResultVO result = new ShowPictureDataResultVO();
+		PictureDTO dto = dao.showPicture(picture_id);
+		if (dto==null) {
+			result.setCode(NOT_FOUND_DATA);
+			return result;
+		}
+		/*
+		 * TODO : member_id는 p_member_id의 값으로 확인 (추후에 친구초대 기능구현시 AlbumMember에서 찾아야함)
+			내 앨범보기도 create_p_member_id가 아닌 AlbumMember에서 찾아야함 
+		 * */
+		int pMemberID = dto.getP_member_id();
+		if(pMemberID!=member_id) {
+			result.setCode(NO_PERMISSOIN);
+			return result;
+		}
+		result.setCode(REQUEST_OK);
+		result.setDto(dto);
 		return result;
 	}
 	

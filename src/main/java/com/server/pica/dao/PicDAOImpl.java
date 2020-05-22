@@ -124,9 +124,15 @@ public class PicDAOImpl implements PicDAO {
    
 	// 앨범 id를 입력받고 앨범에 들어있는 사진 데이터 전부 가져오기
 	@Override
-	public List<PictureDTO> showPicture(int album_id) {
-		System.out.println("showPicture album_id: "+album_id);
+	public List<PictureDTO> showPictureList(int album_id) {
+		System.out.println("showPictureList  album_id: "+album_id);
 		return sqlSession.selectList(namespace+".showPicture",album_id);
+	}
+	// 사진 id를 입력받고 사진 정보를 가져오기
+	@Override
+	public PictureDTO showPicture(int picture_id) {
+		System.out.println("showPicture  picture_id: "+picture_id);
+		return (PictureDTO)sqlSession.selectOne(namespace+".getPicture",picture_id);
 	}
    
 }

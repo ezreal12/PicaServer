@@ -60,5 +60,8 @@
 <insert id="uploadTagOne" parameterType="String">
 	insert into TAGS (tags) VALUES (#{tags});
 </insert>
-
+<!-- 사진 1개 조회하기 -->
+<select id='getPicture' parameterType="int" resultType="com.server.pica.dto.PictureDTO">
+	 select * from PICTURE where picture_id=#{picture_id}
+</select>
 </mapper>

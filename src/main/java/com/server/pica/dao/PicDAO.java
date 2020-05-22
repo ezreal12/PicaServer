@@ -24,5 +24,7 @@ public interface PicDAO {
 	// 유저 ID로 닉네임 가져오기
 	public String getNickNameFromId(int member_id);
 	// 앨범 id를 입력받고 앨범에 들어있는 사진 데이터 전부 가져오기
-	public List<PictureDTO> showPicture(int album_id);
+	public List<PictureDTO> showPictureList(int album_id);
+	// 사진 id를 입력받고 사진 정보를 가져오기
+	public PictureDTO showPicture(int picture_id);
 }

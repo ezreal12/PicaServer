@@ -20,6 +20,7 @@ import com.server.pica.dto.MyAlbumResultVO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.RegisterMemberDTO;
 import com.server.pica.dto.ResultVO;
+import com.server.pica.dto.ShowPictureDataResultVO;
 import com.server.pica.dto.ShowPictureResultVO;
 import com.server.pica.service.PicService;
 import com.server.pica.service.PicServiceImpl;
@@ -112,12 +113,21 @@ public class MainCont {
 		}
 		return resultVO;
 	}
+	//showPictureData.do?picture_id=##&member_id=##
+	@RequestMapping(value = "/showPictureData.do", method = RequestMethod.GET)
+	@ResponseBody
+	public ShowPictureDataResultVO showPictureData(int picture_id,int member_id, HttpServletRequest request) {
+		ShowPictureDataResultVO result = picService.showPicture(picture_id, member_id);
+		result = FileUtil.insertServerUrlInImages(result, request);
+		System.out.println("showPictureData.do : " + result.toString());
+		return result;
+	}
 
 	@RequestMapping(value = "/showPicture.do", method = RequestMethod.GET)
 	@ResponseBody
 	public ShowPictureResultVO showPicture(int album_id, int member_id, HttpServletRequest request) {
 		System.out.println("showPicture.do : album_id : " + album_id + " member_id :" + member_id);
-		ShowPictureResultVO result = picService.showPicture(album_id, member_id);
+		ShowPictureResultVO result = picService.showPictureList(album_id, member_id);
 		result = FileUtil.insertServerUrlInImages(result, request);
 		return result;
 	}
