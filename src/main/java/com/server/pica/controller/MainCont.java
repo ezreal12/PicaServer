@@ -44,11 +44,11 @@ public class MainCont {
 	@ResponseBody
 	public ResultVO upload(PicUploadDTO dto, String tags, MultipartFile realfile, HttpServletRequest request) {
 		String savePath = FileUtil.getFileSavePath(request);
-		int result = picService.savePicture(dto, tags, realfile, savePath);
-		System.out.println("picUpload.do 파일 업로드 실행결과 : {" + result + "}");
+		int code = picService.savePicture(dto, tags, realfile, savePath);
+		System.out.println("picUpload.do 파일 업로드 실행결과 : {" + code + "}");
 		System.out.println("picUpload.do : " + savePath);
 		ResultVO v = new ResultVO();
-		v.setResult(result);
+		v.setCode(code);
 		return v;
 	}
 
@@ -60,10 +60,10 @@ public class MainCont {
 	@ResponseBody
 	public ResultVO registerMember(RegisterMemberDTO dto) {
 		System.out.println("registerMember : " + dto.toString());
-		int result = picService.registerMember(dto);
-		System.out.println("picUpload.do 파일 업로드 실행결과 : {" + result + "}");
+		int code = picService.registerMember(dto);
+		System.out.println("picUpload.do 파일 업로드 실행결과 : {" + code + "}");
 		ResultVO v = new ResultVO();
-		v.setResult(result);
+		v.setCode(code);
 		return v;
 	}
 
@@ -77,12 +77,12 @@ public class MainCont {
 		System.out.println("createAlbum : " + dto.toString());
 		String savePath = request.getSession().getServletContext().getRealPath("/resource");
 		System.out.println("createAlbum : " + savePath);
-		int result = picService.createAlbum(dto, file, savePath);
+		int code = picService.createAlbum(dto, file, savePath);
 		ResultVO v = new ResultVO();
-		v.setResult(result);
+		v.setCode(code);
 		return v;
 	}
-
+	//테스트용 
 	@RequestMapping(value = "/showTable.do", method = RequestMethod.GET)
 	public ModelAndView showTablePage() {
 

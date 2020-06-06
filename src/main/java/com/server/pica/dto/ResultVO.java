@@ -1,14 +1,15 @@
 package com.server.pica.dto;
 // 컨트롤러 작업 후 결과 리턴하는 VO
 public class ResultVO {
-	private int result;
+	private int code;
 
-	public int getResult() {
-		return result;
+	public int getCode() {
+		return code;
 	}
 
-	public void setResult(int result) {
-		this.result = result;
+	public void setCode(int code) {
+		this.code = code;
 	}
+	
 	
 }
