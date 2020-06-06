@@ -1,5 +1,11 @@
 package com.server.pica.dto;
-
+/*
+ * 
+ * PicUploadDTO랑 PictureDTO 를 따로두는이유
+ * PicUploadDTO는 사진을 업로드 할때 쓰는거라 picture_id와 upload_date를 필요로 하지않지만
+ * PictureDTO는 조회한 사진 데이터를 담는 클래스라  picture_id와 upload_date가 필요함
+ * 
+ * */
 public class PicUploadDTO {
 	// 파일 이름
 	private String file;
