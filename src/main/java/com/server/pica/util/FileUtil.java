@@ -116,7 +116,7 @@ public class FileUtil {
 	}
 
 	// 파일 이름을 입력받아서 웹서버경로+파일 이름으로 된 최종경로 리턴하기
-	private static String parseImageSrc(String fileName, HttpServletRequest request) {
+	public static String parseImageSrc(String fileName, HttpServletRequest request) {
 		String url = request.getRequestURL().toString().replace(request.getRequestURI(), "");
 		url = url + request.getContextPath() + IMAGE_PATH;
 		return url + fileName;

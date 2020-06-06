@@ -27,4 +27,6 @@ public interface PicDAO {
 	public List<PictureDTO> showPictureList(int album_id);
 	// 사진 id를 입력받고 사진 정보를 가져오기
 	public PictureDTO showPicture(int picture_id);
+	// 앨범 id를 입력받고 해당 앨범 정보가져오기
+	public CreateAlbumDTO getAlbum(int album_id);
 }

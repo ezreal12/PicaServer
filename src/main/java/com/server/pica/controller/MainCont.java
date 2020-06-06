@@ -122,13 +122,15 @@ public class MainCont {
 		System.out.println("showPictureData.do : " + result.toString());
 		return result;
 	}
-
+	//앨범내 사진보기
 	@RequestMapping(value = "/showPicture.do", method = RequestMethod.GET)
 	@ResponseBody
 	public ShowPictureResultVO showPicture(int album_id, int member_id, HttpServletRequest request) {
 		System.out.println("showPicture.do : album_id : " + album_id + " member_id :" + member_id);
 		ShowPictureResultVO result = picService.showPictureList(album_id, member_id);
 		result = FileUtil.insertServerUrlInImages(result, request);
+		//parseImageSrc
+		result.setDefaultPicture(FileUtil.parseImageSrc(result.getDefaultPicture(), request));
 		return result;
 	}
 

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -112,6 +114,7 @@ public class PicServiceImpl implements PicService {
 	}
 	// 앨범 id를 입력받고 앨범에 들어있는 사진 데이터 전부 가져오기
 	// 0 성공(), -1 앨범없음, -2 가져오기 실패, -3 권한없음
+	// showPicture.do
 	@Override
 	public ShowPictureResultVO showPictureList(int album_id,int member_id) {
 		ShowPictureResultVO result=new ShowPictureResultVO();
@@ -125,11 +128,18 @@ public class PicServiceImpl implements PicService {
 			내 앨범보기도 create_p_member_id가 아닌 AlbumMember에서 찾아야함 
 		 * */
 		// 임시로 멤버 ID가 맞는지 확인해서 인증
+		// 여기도 "앨범 권한 확인" 기능을 만들어서 바꿀것
 		int pMemberID = list.get(0).getP_member_id();
 		if(pMemberID!=member_id) {
 			result.setCode(NO_PERMISSOIN);
 			return result;
 		}
+		// 앨범 이름, 앨범설명, 앨범 타이틀사진 담기
+		CreateAlbumDTO album = dao.getAlbum(album_id);
+		result.setName(album.getName());
+		result.setDescription(album.getDescription());
+		// 사진은 컨트롤러단에서 http 경로붙여서 줍시다
+		result.setDefaultPicture(album.getDefaultPicture());
 		result.setCode(REQUEST_OK);
 		result.setResult(list);
 		return result;

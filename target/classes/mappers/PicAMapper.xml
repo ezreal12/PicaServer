@@ -34,6 +34,10 @@
 <select id='showAlbum' resultType="com.server.pica.dto.CreateAlbumDTO">
 	 select * from ALBUM
 </select>
+<!-- 앨범 ID를 입력받아서 해당 앨범정보 가져오기 -->
+<select id='getAlbum' parameterType="int" resultType="com.server.pica.dto.CreateAlbumDTO">
+	 select * from ALBUM where album_id=#{album_id}
+</select>
 
 <select id='showMember' resultType="com.server.pica.dto.RegisterMemberDTO">
 	 select * from MEMBER
