@@ -38,8 +38,16 @@ public class PicServiceImpl implements PicService {
 	// DB에서 데이터를 찾지 못했을때 (select에서 값이 안나왔을때)
 	public static final int NOT_FOUND_DATA = -1;
 	public static final int ERROR_DATABASE = -2;
+	// 열람 권한 없음
 	public static final int NO_PERMISSOIN = -3;
+	// (로그인 기능) 비밀번호 틀림
+	public static final int PASSWARD_ERROR = -2;
+	// (로그인 기능) ID 없음
+	public static final int NOT_FOUND_ID = -3;
+	// 요청 완료
 	public static final int REQUEST_OK = 0;
+	// 로그인 완료
+	public static final int LOGIN_OK = 0;
 	@Autowired
 	PicDAO dao;
 
@@ -177,6 +185,14 @@ public class PicServiceImpl implements PicService {
 		result.setCode(REQUEST_OK);
 		result.setResult(dtoWrapper);
 		return result;
+	}
+	// 0 성공, -1 에러(안씀), -2 비밀번호 오류, -3 아이디없음
+	@Override
+	public int login(String email, String password) {
+		RegisterMemberDTO member = dao.getMemberFromEmail(email);
+		if(member==null) return NOT_FOUND_ID;
+		if(!password.equals(member.getPassword())) return PASSWARD_ERROR;
+		return LOGIN_OK;
 	}
 	
 }

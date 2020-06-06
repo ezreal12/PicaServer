@@ -133,6 +133,17 @@ public class MainCont {
 		result.setDefaultPicture(FileUtil.parseImageSrc(result.getDefaultPicture(), request));
 		return result;
 	}
+	// 로그인하기
+	// 0 성공, -1 에러(안씀), -2 비밀번호 오류, -3 아이디없음
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultVO login(String email,String password) {
+		System.out.println("login.do : email : " + email + " password :" + password);
+		int result = picService.login(email, password);
+		ResultVO v = new ResultVO();
+		v.setCode(result);
+		return v;
+	}
 
 	@RequestMapping(value = "/dbResult.do", method = RequestMethod.GET)
 	public ModelAndView showResultPage(String tableName) {

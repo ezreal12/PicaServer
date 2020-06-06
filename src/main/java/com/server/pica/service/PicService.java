@@ -29,4 +29,6 @@ public interface PicService {
 	public ShowPictureResultVO showPictureList(int album_id,int member_id);
 	// 사진 id를 입력받고 사진 1개 조회해서 리턴하기
 	public ShowPictureDataResultVO showPicture(int picture_id,int member_id);
+	// 0 성공, -1 에러(안씀), -2 비밀번호 오류, -3 아이디없음
+	public int login(String email,String password);
 }

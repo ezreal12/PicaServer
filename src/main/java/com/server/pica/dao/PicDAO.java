@@ -33,4 +33,7 @@ public interface PicDAO {
 	//멤버 id 입력받아서 해당멤버가 속한 앨범 정보를 담는 album_member 가져오기
 	//주로 권한 체크시 사용
 	public List<AlbumMemberDTO> getAlbumMember(int member_id);
+	// Email 주소로 해당되는 멤버 정보 가져오기
+	// 실제 로그인 기능에 사용
+	public RegisterMemberDTO getMemberFromEmail(String email);
 }

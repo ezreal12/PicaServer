@@ -74,5 +74,9 @@
 <select id='getAlbum_member' parameterType="int" resultType="com.server.pica.dto.AlbumMemberDTO">
 	 select * from ALBUM_MEMBER where a_member_id=#{member_id};
 </select>
+<!-- email로 회원정보 1개 가져오기 TODO : 나중에 email에도 중복여부 체크가 필요하긴할듯-->
+<select id='getMemberFromEmail' parameterType="String" resultType="com.server.pica.dto.RegisterMemberDTO">
+	 select * from MEMBER where email=#{email}
+</select>
 
 </mapper>

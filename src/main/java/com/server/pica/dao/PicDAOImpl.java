@@ -149,5 +149,11 @@ public class PicDAOImpl implements PicDAO {
 		System.out.println("getAlbumMember  member_id: "+member_id);
 		return sqlSession.selectList(namespace+".getAlbum_member",member_id);
 	}
+	
+	@Override
+	public RegisterMemberDTO getMemberFromEmail(String email) {
+		System.out.println("getMemberFromEmail  email: "+email);
+		return (RegisterMemberDTO)sqlSession.selectOne(namespace+".getMemberFromEmail",email);
+	}
    
 }
