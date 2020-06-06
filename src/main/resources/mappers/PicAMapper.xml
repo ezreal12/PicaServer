@@ -74,4 +74,5 @@
 <select id='getAlbum_member' parameterType="int" resultType="com.server.pica.dto.AlbumMemberDTO">
 	 select * from ALBUM_MEMBER where a_member_id=#{member_id};
 </select>
+
 </mapper>

@@ -2,22 +2,24 @@ package com.server.pica.dto;
 // showPictureData.do 결과 데이터
 public class ShowPictureDataResultVO {
 	private int code;
-	private PictureDTO dto;
+	private PictureDTOWrapper result;
 	public int getCode() {
 		return code;
 	}
 	public void setCode(int code) {
 		this.code = code;
 	}
-	public PictureDTO getDto() {
-		return dto;
+	
+	public PictureDTOWrapper getResult() {
+		return result;
 	}
-	public void setDto(PictureDTO dto) {
-		this.dto = dto;
+	public void setResult(PictureDTOWrapper result) {
+		this.result = result;
 	}
 	@Override
 	public String toString() {
-		return "ShowPictureDataResultVO [code=" + code + ", dto=" + dto + "]";
+		return "ShowPictureDataResultVO [code=" + code + ", result=" + result + "]";
 	}
+	
 	
 }

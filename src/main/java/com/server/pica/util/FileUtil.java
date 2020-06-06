@@ -12,6 +12,7 @@ import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.PictureDTO;
+import com.server.pica.dto.PictureDTOWrapper;
 import com.server.pica.dto.ShowPictureDataResultVO;
 import com.server.pica.dto.ShowPictureResultVO;
 
@@ -93,11 +94,11 @@ public class FileUtil {
 	// 사진 DTO 1개를 입력받아 해당 리스트의 DTO 파일 경로에 서버 주소를 추가해서 리턴한다.
 	public static ShowPictureDataResultVO insertServerUrlInImages(ShowPictureDataResultVO data,
 			HttpServletRequest request) {
-		PictureDTO dto = data.getDto();
+		PictureDTOWrapper dto = data.getResult();
 		if (dto == null)
 			return data;
 		dto.setFile(parseImageSrc(dto.getFile(), request));
-		data.setDto(dto);
+		data.setResult(dto);
 		return data;
 	}
 

@@ -18,6 +18,7 @@ import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.PictureDTO;
+import com.server.pica.dto.PictureDTOWrapper;
 import com.server.pica.dto.RegisterMemberDTO;
 import com.server.pica.dto.ShowPictureDataResultVO;
 import com.server.pica.dto.ShowPictureResultVO;
@@ -161,15 +162,20 @@ public class PicServiceImpl implements PicService {
 		}
 		/*
 		 * TODO : member_id는 p_member_id의 값으로 확인 (추후에 친구초대 기능구현시 AlbumMember에서 찾아야함)
-			내 앨범보기도 create_p_member_id가 아닌 AlbumMember에서 찾아야함 
+			추후 친구초대 기능이 구현되면 가능함 (앨범에 소속된 멤버를 담고있는 테이블이
 		 * */
-		int pMemberID = dto.getP_member_id();
-		if(pMemberID!=member_id) {
+		// 1. 해당 사진이 속한 앨범 ID 조회하기
+		int albumId = dto.getP_album_id();
+		// 2. 해당 앨범 ID를 볼수있는 권한이 사용자에게 있는가 조회하기
+		if(!checkPermissoinAlbum(member_id, albumId)) {
 			result.setCode(NO_PERMISSOIN);
 			return result;
 		}
+		// 사진 게시자 닉네임 가져오기
+		PictureDTOWrapper dtoWrapper = new PictureDTOWrapper(dto);
+		dtoWrapper.setNickName(dao.getNickNameFromId(dtoWrapper.getP_member_id()));
 		result.setCode(REQUEST_OK);
-		result.setDto(dto);
+		result.setResult(dtoWrapper);
 		return result;
 	}
 	
