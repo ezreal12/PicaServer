@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.server.pica.dto.AlbumMemberDTO;
 import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.PictureDTO;
@@ -141,6 +142,12 @@ public class PicDAOImpl implements PicDAO {
 	public PictureDTO showPicture(int picture_id) {
 		System.out.println("showPicture  picture_id: "+picture_id);
 		return (PictureDTO)sqlSession.selectOne(namespace+".getPicture",picture_id);
+	}
+	
+	@Override
+	public List<AlbumMemberDTO> getAlbumMember(int member_id) {
+		System.out.println("getAlbumMember  member_id: "+member_id);
+		return sqlSession.selectList(namespace+".getAlbum_member",member_id);
 	}
    
 }

@@ -2,6 +2,7 @@ package com.server.pica.dao;
 
 import java.util.List;
 
+import com.server.pica.dto.AlbumMemberDTO;
 import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.PictureDTO;
@@ -29,4 +30,7 @@ public interface PicDAO {
 	public PictureDTO showPicture(int picture_id);
 	// 앨범 id를 입력받고 해당 앨범 정보가져오기
 	public CreateAlbumDTO getAlbum(int album_id);
+	//멤버 id 입력받아서 해당멤버가 속한 앨범 정보를 담는 album_member 가져오기
+	//주로 권한 체크시 사용
+	public List<AlbumMemberDTO> getAlbumMember(int member_id);
 }

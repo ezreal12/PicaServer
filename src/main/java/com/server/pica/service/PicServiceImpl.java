@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.server.pica.dao.PicDAO;
+import com.server.pica.dto.AlbumMemberDTO;
 import com.server.pica.dto.CreateAlbumDTO;
 import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
@@ -99,7 +100,18 @@ public class PicServiceImpl implements PicService {
 	public List showTable(String tableName) {
 		return dao.showTable(tableName);
 	}
-	
+	// 멤버 ID로 앨범에 권한이 있는지 확인하기
+	// false : 권한없음 , true : 권한 있음.
+	private boolean checkPermissoinAlbum(int member_id,int album_id) {
+		List<AlbumMemberDTO> list = dao.getAlbumMember(member_id);
+		if (list==null||list.size()==0) return false;
+		for (AlbumMemberDTO d : list) {
+			if(d.getA_album_id()==album_id) {
+				return true;
+			}
+		}
+		return false;
+	}
 	@Override
 	public List<MyAlbumDTO> getMyalbum(int create_p_member_id) {
 		List<CreateAlbumDTO> list = dao.getMyalbum(create_p_member_id);
@@ -123,14 +135,8 @@ public class PicServiceImpl implements PicService {
 			result.setCode(NOT_FOUND_DATA);
 			return result;
 		}
-		/*
-		 * TODO : member_id는 p_member_id의 값으로 확인 (추후에 친구초대 기능구현시 AlbumMember에서 찾아야함)
-			내 앨범보기도 create_p_member_id가 아닌 AlbumMember에서 찾아야함 
-		 * */
-		// 임시로 멤버 ID가 맞는지 확인해서 인증
-		// 여기도 "앨범 권한 확인" 기능을 만들어서 바꿀것
-		int pMemberID = list.get(0).getP_member_id();
-		if(pMemberID!=member_id) {
+		// 앨범 권한을 확인해서 권한이 없을경우
+		if(!checkPermissoinAlbum(member_id, album_id)) {
 			result.setCode(NO_PERMISSOIN);
 			return result;
 		}
