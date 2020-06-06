@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.server.pica.dao.PicDAO;
 import com.server.pica.dto.AlbumMemberDTO;
 import com.server.pica.dto.CreateAlbumDTO;
+import com.server.pica.dto.LoginVO;
 import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.PictureDTO;
@@ -188,11 +189,21 @@ public class PicServiceImpl implements PicService {
 	}
 	// 0 성공, -1 에러(안씀), -2 비밀번호 오류, -3 아이디없음
 	@Override
-	public int login(String email, String password) {
+	public LoginVO login(String email, String password) {
 		RegisterMemberDTO member = dao.getMemberFromEmail(email);
-		if(member==null) return NOT_FOUND_ID;
-		if(!password.equals(member.getPassword())) return PASSWARD_ERROR;
-		return LOGIN_OK;
+		LoginVO result = new LoginVO();
+		
+		if(member==null) {
+			result.setCode(NOT_FOUND_ID);
+			return result;
+		}
+		if(!password.equals(member.getPassword())) {
+			result.setCode(PASSWARD_ERROR);
+			return result;
+		}
+		result.setCode(LOGIN_OK);
+		result.setMember_id(member.getMember_id());
+		return result;
 	}
 	
 }

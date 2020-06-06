@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.server.pica.dto.CreateAlbumDTO;
+import com.server.pica.dto.LoginVO;
 import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.MyAlbumResultVO;
 import com.server.pica.dto.PicUploadDTO;
@@ -137,12 +138,10 @@ public class MainCont {
 	// 0 성공, -1 에러(안씀), -2 비밀번호 오류, -3 아이디없음
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultVO login(String email,String password) {
+	public LoginVO login(String email,String password) {
 		System.out.println("login.do : email : " + email + " password :" + password);
-		int result = picService.login(email, password);
-		ResultVO v = new ResultVO();
-		v.setCode(result);
-		return v;
+		LoginVO result = picService.login(email, password);
+		return result;
 	}
 
 	@RequestMapping(value = "/dbResult.do", method = RequestMethod.GET)

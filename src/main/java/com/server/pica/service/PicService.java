@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.server.pica.dto.CreateAlbumDTO;
+import com.server.pica.dto.LoginVO;
 import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.RegisterMemberDTO;
@@ -30,5 +31,5 @@ public interface PicService {
 	// 사진 id를 입력받고 사진 1개 조회해서 리턴하기
 	public ShowPictureDataResultVO showPicture(int picture_id,int member_id);
 	// 0 성공, -1 에러(안씀), -2 비밀번호 오류, -3 아이디없음
-	public int login(String email,String password);
+	public LoginVO login(String email,String password);
 }
