@@ -102,6 +102,13 @@ public class PicServiceImpl implements PicService {
 		dto.setDefaultPicture(realFileName);
 		// 2. DB에 정보입력
 		int result = dao.createAlbum(dto);
+		//TODO : 3. 앨범 생성한사람을 앨범 멤버에 추가 (열람권한 부여)
+		/*
+		 * 6월 8일 기준
+		 * 여기서 생성한 앨범의 숫자 ID를 알아내서 album_member 테이블에 앨범 ID와 멤버 ID를 던져줘야하는데
+		 * 바로 윗줄에서 생성한 앨범의 숫자 ID를 알아낼수있는 방법이 없음
+		 * 추후 DB 구조 변경요망
+		 * */
 		// DB 에러 발생시
 		if (result < 0)
 			return ERROR_DATABASE;
