@@ -33,6 +33,7 @@ public class PicDAOImpl implements PicDAO {
 	// 2. 태그 데이터가 있을경우 태그 데이터도 입력 / 없으면 넘어감.
    @Override
    public int insertPicData(PicUploadDTO dto,List<String> tags) {
+	   System.out.println("------ TEST HS 2 !!!! : "+dto.toString());
 	   try {
 		   sqlSession.insert(namespace+".uploadPic",dto);
 	} catch (Exception e) {

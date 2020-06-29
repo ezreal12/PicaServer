@@ -45,6 +45,7 @@ public class MainCont {
 	@ResponseBody
 	public ResultVO upload(PicUploadDTO dto, String tags, MultipartFile realfile, HttpServletRequest request) {
 		String savePath = FileUtil.getFileSavePath(request);
+		System.out.println("------ TEST HS 1 !!!! : "+dto.toString()+" tags : "+tags);
 		int code = picService.savePicture(dto, tags, realfile, savePath);
 		System.out.println("picUpload.do 파일 업로드 실행결과 : {" + code + "}");
 		System.out.println("picUpload.do : " + savePath);

@@ -23,8 +23,8 @@ public class PictureDTOWrapper extends PictureDTO {
 		setUpload_date(d.getUpload_date());
 		setP_member_id(d.getP_member_id());
 		setP_album_id(d.getP_album_id());
-		setLatitude(d.getLatitude());
-		setLongitude(d.getLongitude());
+		setLatitude(Double.toString(d.getLatitude()));
+		setLongitude(Double.toString(d.getLongitude()));
 		setContents(d.getContents());
 	}
 	public String getNickName() {

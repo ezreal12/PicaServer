@@ -10,8 +10,8 @@ public class PicUploadDTO {
 	// 파일 이름
 	private String file;
 	// 위도 , 경도
-	private double latitude;
-	private double longitude;
+	private String latitude;
+	private String longitude;
 	// 내용설명
 	private String contents;
 	// 사진 소유자 id
@@ -38,16 +38,16 @@ public class PicUploadDTO {
 	public void setFile(String file) {
 		this.file = file;
 	}
-	public double getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(double latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
-	public double getLongitude() {
+	public String getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(double longitude) {
+	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
 	public String getContents() {

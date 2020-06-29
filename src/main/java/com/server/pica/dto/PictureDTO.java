@@ -18,8 +18,8 @@ public class PictureDTO {
 	private int p_member_id;
 	private int p_album_id;
 	// 위도 , 경도
-	private double latitude;
-	private double longitude;
+	private String latitude;
+	private String longitude;
 	// 내용설명
 	private String contents;
 	public int getPicture_id() {
@@ -53,15 +53,15 @@ public class PictureDTO {
 		this.p_album_id = p_album_id;
 	}
 	public double getLatitude() {
-		return latitude;
+		return Double.parseDouble(latitude);
 	}
-	public void setLatitude(double latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
 	public double getLongitude() {
-		return longitude;
+		return Double.parseDouble(longitude);
 	}
-	public void setLongitude(double longitude) {
+	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
 	public String getContents() {
