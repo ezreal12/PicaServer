@@ -2,6 +2,7 @@ package com.server.pica.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,8 +32,11 @@ public class FileUtil {
 				// 폴더 생성에서 에러 발생시 로그 남기기
 			}
 		}
-		String saveName = file.getOriginalFilename();
 
+		String fileFullStr = file.getOriginalFilename();
+		String fileExt = getFileType(fileFullStr);
+		String saveName = fileNameAtDate(fileExt);
+		
 		// logger.info("saveName: {}",saveName);
 		System.out.println("saveName: {" + saveName + "}");
 
@@ -48,6 +52,21 @@ public class FileUtil {
 		}
 		dto.setFile(saveName);
 		return dto;
+	}
+
+	// 풀 확장자의 파일명을 입력받아서 파일 확장자만 리턴하기
+	// 1234.jpg -> .jpg
+	public static String getFileType(String strFileName) {
+		int pos = strFileName.lastIndexOf(".");
+		String ext = strFileName.substring(pos);
+		return ext;
+	}
+	// 파일확장자만 입력받아서 날짜붙인 파일이름 만들어주기
+	// ext = .jpg => 리턴 : 20200629112559.jpg
+	public static String fileNameAtDate(String ext) {
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMMddHHmmss");
+		String format_time1 = format1.format (System.currentTimeMillis());
+		return format_time1+ext;
 	}
 
 	// 파일을 저장하고 파일 명을 리턴함
