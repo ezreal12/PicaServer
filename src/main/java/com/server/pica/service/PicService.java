@@ -52,4 +52,9 @@ public interface PicService {
 	// 성공:0 / 실패 -1
 	public int addReply(int member_id, int picture_id, String reply_text);
 
+	// 댓글 지우기
+	// 멤버 id로 작성자인지 확인하고 작성자가 맞으면 그때 삭제함
+	// 성공:0 / 실패 -1
+	public int deleteReply(int member_id, int reply_id);
+
 }

@@ -105,6 +105,14 @@
 	 insert into REPLY (picture_id, member_id,reply_text) VALUES (#{picture_id}, #{member_id},#{reply_text});	 
 </insert>
 
+<!-- 댓글 지우기전에 권한 확인하기 위해 댓글 정보 가져오기-->
+<select id='serchReply' parameterType="com.server.pica.dto.ReplyDTO" resultType="com.server.pica.dto.ReplyDTO">
+	 select * from REPLY where member_id = #{member_id} and reply_id = #{reply_id} ;
+</select>
 
+<!-- 댓글 지우기-->
+<delete id='deleteReply' parameterType="int">
+	 delete from REPLY where reply_id = #{reply_id} ;
+</delete>
 
 </mapper>

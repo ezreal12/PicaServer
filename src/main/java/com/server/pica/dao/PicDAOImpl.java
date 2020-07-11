@@ -178,7 +178,7 @@ public class PicDAOImpl implements PicDAO {
 	public int deleteLikePicture(LikePictureDTO dto) {
 		System.out.println(dto.toString());
 		try {
-			   sqlSession.insert(namespace+".deleteLikePicture",dto);
+			   sqlSession.delete(namespace+".deleteLikePicture",dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
@@ -214,5 +214,22 @@ public class PicDAOImpl implements PicDAO {
 			return -1;
 		}
 		   return 0;
+	}
+	
+	@Override
+	public int deleteReply(int reply_id) {
+		System.out.println(reply_id);
+		try {
+			   sqlSession.delete(namespace+".deleteReply",reply_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		   return 0;
+	}
+	@Override
+	public ReplyDTO serchReply(ReplyDTO dto) {
+		System.out.println("serchReply  dto: "+dto.toString());
+		return (ReplyDTO)sqlSession.selectOne(namespace+".serchReply",dto);
 	}
 }

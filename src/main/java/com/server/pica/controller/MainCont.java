@@ -105,6 +105,16 @@ public class MainCont {
 		v.setCode(code);
 		return v;
 	}
+	
+	// 사진에 댓글 1개 지우기
+	@RequestMapping(value = "/replyPictrueDelete.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultVO replyPictrueAdd(int member_id, int reply_id) {
+		int code = picService.deleteReply(member_id, reply_id);
+		ResultVO v = new ResultVO();
+		v.setCode(code);
+		return v;
+	}
 
 	// 테스트용
 	@RequestMapping(value = "/showTable.do", method = RequestMethod.GET)

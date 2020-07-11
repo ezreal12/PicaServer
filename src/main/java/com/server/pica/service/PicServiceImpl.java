@@ -319,9 +319,29 @@ public class PicServiceImpl implements PicService {
 		dto.setMember_id(member_id);
 		dto.setPicture_id(picture_id);
 		dto.setReply_text(reply_text);
-		
+
 		// DB에 정보입력
 		int result = dao.addReply(dto);
+		// DB 에러 발생시
+		if (result < 0)
+			return ERROR_DATABASE;
+		return REQUEST_OK;
+	}
+
+	// 댓글 지우기
+	// 멤버 id로 작성자인지 확인하고 작성자가 맞으면 그때 삭제함
+	// 성공:0 / 실패 -1 / 권한없음 -3
+	@Override
+	public int deleteReply(int member_id, int reply_id) {
+		ReplyDTO sample = new ReplyDTO();
+		sample.setMember_id(member_id);
+		sample.setReply_id(reply_id);
+		// 1. 권한 확인하기 NO_PERMISSOIN
+		ReplyDTO d = dao.serchReply(sample);
+		if (d == null) {
+			return NO_PERMISSOIN;
+		}
+		int result = dao.deleteReply(reply_id);
 		// DB 에러 발생시
 		if (result < 0)
 			return ERROR_DATABASE;
