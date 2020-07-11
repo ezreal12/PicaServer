@@ -22,6 +22,7 @@ import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.PictureDTO;
 import com.server.pica.dto.PictureDTOWrapper;
 import com.server.pica.dto.RegisterMemberDTO;
+import com.server.pica.dto.ReplyDTO;
 import com.server.pica.dto.ShowPictureDataResultVO;
 import com.server.pica.dto.ShowPictureResultVO;
 import com.server.pica.util.FileUtil;
@@ -208,13 +209,12 @@ public class PicServiceImpl implements PicService {
 		// 사진 게시자 닉네임 가져오기
 		PictureDTOWrapper dtoWrapper = new PictureDTOWrapper(dto);
 		dtoWrapper.setNickName(dao.getNickNameFromId(dtoWrapper.getP_member_id()));
-		
-		
+
 		// 내가 업로드한 사진인가? 알아보기
-			// 업로더 ID
+		// 업로더 ID
 		int uploaderId = dto.getP_member_id();
 		// 자기가 업로드 한 사진이면
-		if(uploaderId==member_id) {
+		if (uploaderId == member_id) {
 			result.setIsMyUpload('y');
 		}
 		// 자기가 업로드한 사진이 아닐경우
@@ -222,15 +222,14 @@ public class PicServiceImpl implements PicService {
 			result.setIsMyUpload('n');
 		}
 
-		//내가 사진에 좋아요를 누른 사진인가?
+		// 내가 사진에 좋아요를 누른 사진인가?
 		LikePictureDTO sample = new LikePictureDTO();
 		sample.setMember_id(member_id);
 		sample.setPicture_id(dto.getPicture_id());
-		LikePictureDTO serchResult=dao.serchLikePicture(sample);
-		if(serchResult!=null) {
+		LikePictureDTO serchResult = dao.serchLikePicture(sample);
+		if (serchResult != null) {
 			result.setIsLikePicture('y');
-		}
-		else {
+		} else {
 			result.setIsLikePicture('n');
 		}
 
@@ -314,4 +313,18 @@ public class PicServiceImpl implements PicService {
 		return result;
 	}
 
+	@Override
+	public int addReply(int member_id, int picture_id, String reply_text) {
+		ReplyDTO dto = new ReplyDTO();
+		dto.setMember_id(member_id);
+		dto.setPicture_id(picture_id);
+		dto.setReply_text(reply_text);
+		
+		// DB에 정보입력
+		int result = dao.addReply(dto);
+		// DB 에러 발생시
+		if (result < 0)
+			return ERROR_DATABASE;
+		return REQUEST_OK;
+	}
 }

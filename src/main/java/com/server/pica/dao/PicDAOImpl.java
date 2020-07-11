@@ -13,6 +13,7 @@ import com.server.pica.dto.LikePictureDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.PictureDTO;
 import com.server.pica.dto.RegisterMemberDTO;
+import com.server.pica.dto.ReplyDTO;
 //@Repository 없으면 AutoWired 애노테이션 쓰는코드 반드시 에러남 중요
 @Repository
 public class PicDAOImpl implements PicDAO {
@@ -200,5 +201,18 @@ public class PicDAOImpl implements PicDAO {
 	public PictureDTO getPicture(int picture_id) {
 		System.out.println("getPicture  picture_id: "+picture_id);
 		return (PictureDTO)sqlSession.selectOne(namespace+".getPicture",picture_id);
+	}
+	//댓글 입력받기
+	// 성공:0 / 실패 -1
+	@Override
+	public int addReply(ReplyDTO dto) {
+		System.out.println(dto.toString());
+		try {
+			   sqlSession.insert(namespace+".addReply",dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		   return 0;
 	}
 }

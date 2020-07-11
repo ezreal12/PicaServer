@@ -100,4 +100,11 @@
 	 select * from LIKE_PICTURE where member_id = #{member_id} ;
 </select>
 
+<!-- 댓글 입력받기-->
+<insert id='addReply' parameterType="com.server.pica.dto.ReplyDTO">
+	 insert into REPLY (picture_id, member_id,reply_text) VALUES (#{picture_id}, #{member_id},#{reply_text});	 
+</insert>
+
+
+
 </mapper>

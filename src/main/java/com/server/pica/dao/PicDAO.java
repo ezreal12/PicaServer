@@ -8,6 +8,7 @@ import com.server.pica.dto.LikePictureDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.PictureDTO;
 import com.server.pica.dto.RegisterMemberDTO;
+import com.server.pica.dto.ReplyDTO;
 
 public interface PicDAO {
 	// 데이터베이스에 업로드된 사진 dto 삽입하기
@@ -52,6 +53,7 @@ public interface PicDAO {
 	//<!-- 사진 1개 조회하기 -->
 	public PictureDTO getPicture(int picture_id);
 	
-	
-	
+	//댓글 입력받기
+	// 성공:0 / 실패 -1
+	public int addReply(ReplyDTO dto);
 }

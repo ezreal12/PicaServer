@@ -46,7 +46,7 @@ public class MainCont {
 	@ResponseBody
 	public ResultVO upload(PicUploadDTO dto, String tags, MultipartFile realfile, HttpServletRequest request) {
 		String savePath = FileUtil.getFileSavePath(request);
-		System.out.println("------ TEST HS 1 !!!! : "+dto.toString()+" tags : "+tags);
+		System.out.println("------ TEST HS 1 !!!! : " + dto.toString() + " tags : " + tags);
 		int code = picService.savePicture(dto, tags, realfile, savePath);
 		System.out.println("picUpload.do 파일 업로드 실행결과 : {" + code + "}");
 		System.out.println("picUpload.do : " + savePath);
@@ -85,20 +85,28 @@ public class MainCont {
 		v.setCode(code);
 		return v;
 	}
-	
-	
+
+	// 사진 좋아요 누르기
 	@RequestMapping(value = "/likePicture.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultVO createAlbum(LikePictureDTO dto, HttpServletRequest request) {
+	public ResultVO likePicture(LikePictureDTO dto, HttpServletRequest request) {
 		int code = picService.addLikePicture(dto);
 		ResultVO v = new ResultVO();
 		v.setCode(code);
 		return v;
 	}
-	
-	
-	
-	//테스트용 
+
+	// 사진에 댓글 1개 달기
+	@RequestMapping(value = "/replyPictrueAdd.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultVO replyPictrueAdd(int member_id, int picture_id, String reply_text, HttpServletRequest request) {
+		int code = picService.addReply(member_id, picture_id, reply_text);
+		ResultVO v = new ResultVO();
+		v.setCode(code);
+		return v;
+	}
+
+	// 테스트용
 	@RequestMapping(value = "/showTable.do", method = RequestMethod.GET)
 	public ModelAndView showTablePage() {
 
@@ -129,46 +137,46 @@ public class MainCont {
 		}
 		return resultVO;
 	}
-	//showPictureData.do?picture_id=##&member_id=##
+
+	// showPictureData.do?picture_id=##&member_id=##
 	@RequestMapping(value = "/showPictureData.do", method = RequestMethod.GET)
 	@ResponseBody
-	public ShowPictureDataResultVO showPictureData(int picture_id,int member_id, HttpServletRequest request) {
+	public ShowPictureDataResultVO showPictureData(int picture_id, int member_id, HttpServletRequest request) {
 		ShowPictureDataResultVO result = picService.showPicture(picture_id, member_id);
 		result = FileUtil.insertServerUrlInImages(result, request);
 		System.out.println("showPictureData.do : " + result.toString());
 		return result;
 	}
-	
-	//앨범내 사진보기
+
+	// 앨범내 사진보기
 	@RequestMapping(value = "/showPicture.do", method = RequestMethod.GET)
 	@ResponseBody
 	public ShowPictureResultVO showPicture(int album_id, int member_id, HttpServletRequest request) {
 		System.out.println("showPicture.do : album_id : " + album_id + " member_id :" + member_id);
 		ShowPictureResultVO result = picService.showPictureList(album_id, member_id);
 		result = FileUtil.insertServerUrlInImages(result, request);
-		//parseImageSrc
+		// parseImageSrc
 		result.setDefaultPicture(FileUtil.parseImageSrc(result.getDefaultPicture(), request));
 		return result;
 	}
-	
-	//좋아하는 사진 목록 보기
+
+	// 좋아하는 사진 목록 보기
 	@RequestMapping(value = "/getLikePictureList.do", method = RequestMethod.GET)
 	@ResponseBody
 	public ShowPictureResultVO getLikePictureList(int member_id, HttpServletRequest request) {
 		System.out.println("getLikePictureList.do : member_id : " + member_id);
 		ShowPictureResultVO result = picService.showLikePictureList(member_id);
 		result = FileUtil.insertServerUrlInImages(result, request);
-		//parseImageSrc
+		// parseImageSrc
 		result.setDefaultPicture(FileUtil.parseImageSrc(result.getDefaultPicture(), request));
 		return result;
 	}
-	
-	
+
 	// 로그인하기
 	// 0 성공, -1 에러(안씀), -2 비밀번호 오류, -3 아이디없음
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	@ResponseBody
-	public LoginVO login(String email,String password) {
+	public LoginVO login(String email, String password) {
 		System.out.println("login.do : email : " + email + " password :" + password);
 		LoginVO result = picService.login(email, password);
 		return result;

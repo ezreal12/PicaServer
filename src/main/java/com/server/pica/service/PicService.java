@@ -10,6 +10,7 @@ import com.server.pica.dto.LoginVO;
 import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.RegisterMemberDTO;
+import com.server.pica.dto.ReplyDTO;
 import com.server.pica.dto.ShowPictureDataResultVO;
 import com.server.pica.dto.ShowPictureResultVO;
 
@@ -46,5 +47,9 @@ public interface PicService {
 
 	// 멤버 id를 입력받고 해당 유저가 좋아하는 사진 데이터 전부 가져오기
 	public ShowPictureResultVO showLikePictureList(int member_id);
+
+	// 댓글 입력받기
+	// 성공:0 / 실패 -1
+	public int addReply(int member_id, int picture_id, String reply_text);
 
 }
