@@ -208,6 +208,32 @@ public class PicServiceImpl implements PicService {
 		// 사진 게시자 닉네임 가져오기
 		PictureDTOWrapper dtoWrapper = new PictureDTOWrapper(dto);
 		dtoWrapper.setNickName(dao.getNickNameFromId(dtoWrapper.getP_member_id()));
+		
+		
+		// 내가 업로드한 사진인가? 알아보기
+			// 업로더 ID
+		int uploaderId = dto.getP_member_id();
+		// 자기가 업로드 한 사진이면
+		if(uploaderId==member_id) {
+			result.setIsMyUpload('y');
+		}
+		// 자기가 업로드한 사진이 아닐경우
+		else {
+			result.setIsMyUpload('n');
+		}
+
+		//내가 사진에 좋아요를 누른 사진인가?
+		LikePictureDTO sample = new LikePictureDTO();
+		sample.setMember_id(member_id);
+		sample.setPicture_id(dto.getPicture_id());
+		LikePictureDTO serchResult=dao.serchLikePicture(sample);
+		if(serchResult!=null) {
+			result.setIsLikePicture('y');
+		}
+		else {
+			result.setIsLikePicture('n');
+		}
+
 		result.setCode(REQUEST_OK);
 		result.setResult(dtoWrapper);
 		return result;
