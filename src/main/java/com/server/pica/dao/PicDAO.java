@@ -62,5 +62,7 @@ public interface PicDAO {
 	public int deleteReply(int reply_id);
 	// 댓글 정보 확인하기<!-- 댓글 지우기전에 권한 확인하기 위해 댓글 정보 가져오기-->
 	public ReplyDTO serchReply(ReplyDTO dto);
+	//<!-- 사진 1개의 댓글 전부 가져오기-->
+	public List<ReplyDTO> getReply(int picture_id);
 		
 }

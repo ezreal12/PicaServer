@@ -23,8 +23,10 @@ import com.server.pica.dto.PictureDTO;
 import com.server.pica.dto.PictureDTOWrapper;
 import com.server.pica.dto.RegisterMemberDTO;
 import com.server.pica.dto.ReplyDTO;
+import com.server.pica.dto.ReplyDTOWrapper;
 import com.server.pica.dto.ShowPictureDataResultVO;
 import com.server.pica.dto.ShowPictureResultVO;
+import com.server.pica.dto.ShowReplyResultVO;
 import com.server.pica.util.FileUtil;
 import com.server.pica.util.StringUtil;
 
@@ -346,5 +348,37 @@ public class PicServiceImpl implements PicService {
 		if (result < 0)
 			return ERROR_DATABASE;
 		return REQUEST_OK;
+	}
+	// <!-- 사진 1개의 댓글 전부 가져오기-->
+	// 멤버 id는 해당 유저의 닉네임을 가져오는데, 자기자신이 작성했는지 여부를 확인하는곳에 쓰임
+
+	@Override
+	public ShowReplyResultVO getReply(int member_id, int picture_id) {
+		ShowReplyResultVO result = new ShowReplyResultVO();
+		// 1. 댓글부터 전부 가져오기
+		List<ReplyDTO> list = dao.getReply(picture_id);
+		// 검색 결과가 0일경우
+		if (list == null || list.size() == 0) {
+			result.setCode(NOT_FOUND_DATA);
+			return result;
+		}
+		// 2. 닉네임 가져오기
+		String nick = dao.getNickNameFromId(member_id);
+		List<ReplyDTOWrapper> wList = new ArrayList<ReplyDTOWrapper>();
+		for(ReplyDTO d : list) {
+			// 2. 자기자신이 썼는지 여부 확인하기
+			char isMyReply = 'n';
+			if(d.getMember_id()==member_id) {
+				isMyReply='y';
+			}
+			ReplyDTOWrapper w = new ReplyDTOWrapper(d);
+			w.setNickName(nick);
+			w.setIsMyReply(isMyReply);
+			wList.add(w);
+		}
+		result.setNickName(nick);
+		result.setCode(REQUEST_OK);
+		result.setResult(wList);
+		return result;
 	}
 }

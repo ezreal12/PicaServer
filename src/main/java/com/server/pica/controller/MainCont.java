@@ -24,6 +24,7 @@ import com.server.pica.dto.RegisterMemberDTO;
 import com.server.pica.dto.ResultVO;
 import com.server.pica.dto.ShowPictureDataResultVO;
 import com.server.pica.dto.ShowPictureResultVO;
+import com.server.pica.dto.ShowReplyResultVO;
 import com.server.pica.service.PicService;
 import com.server.pica.service.PicServiceImpl;
 import com.server.pica.util.FileUtil;
@@ -157,6 +158,17 @@ public class MainCont {
 		System.out.println("showPictureData.do : " + result.toString());
 		return result;
 	}
+	
+	// 사진 1개의 댓글 가져오기
+	//(int member_id, int picture_id)
+	@RequestMapping(value = "/showReply.do", method = RequestMethod.GET)
+	@ResponseBody
+	public ShowReplyResultVO showReply(int picture_id, int member_id, HttpServletRequest request) {
+		ShowReplyResultVO result = picService.getReply(member_id, picture_id);
+		System.out.println("showReply.do : " + result.toString());
+		return result;
+	}
+	
 
 	// 앨범내 사진보기
 	@RequestMapping(value = "/showPicture.do", method = RequestMethod.GET)

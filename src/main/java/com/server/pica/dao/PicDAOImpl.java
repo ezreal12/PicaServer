@@ -232,4 +232,10 @@ public class PicDAOImpl implements PicDAO {
 		System.out.println("serchReply  dto: "+dto.toString());
 		return (ReplyDTO)sqlSession.selectOne(namespace+".serchReply",dto);
 	}
+	//<!-- 사진 1개의 댓글 전부 가져오기-->
+	@Override
+	public List<ReplyDTO> getReply(int picture_id) {
+		System.out.println("getReply  picture_id: "+picture_id);
+		return sqlSession.selectList(namespace+".getReply",picture_id);
+	}
 }

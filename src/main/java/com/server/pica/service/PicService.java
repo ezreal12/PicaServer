@@ -11,8 +11,10 @@ import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.RegisterMemberDTO;
 import com.server.pica.dto.ReplyDTO;
+import com.server.pica.dto.ReplyDTOWrapper;
 import com.server.pica.dto.ShowPictureDataResultVO;
 import com.server.pica.dto.ShowPictureResultVO;
+import com.server.pica.dto.ShowReplyResultVO;
 
 public interface PicService {
 	// 컨트롤러부터 파일 입력받고 파일저장
@@ -56,5 +58,9 @@ public interface PicService {
 	// 멤버 id로 작성자인지 확인하고 작성자가 맞으면 그때 삭제함
 	// 성공:0 / 실패 -1
 	public int deleteReply(int member_id, int reply_id);
+	
+	//<!-- 사진 1개의 댓글 전부 가져오기-->
+	//멤버 id는 해당 유저의 닉네임을 가져오는데, 자기자신이 작성했는지 여부를 확인하는곳에 쓰임
+	public ShowReplyResultVO getReply(int member_id,int picture_id);
 
 }

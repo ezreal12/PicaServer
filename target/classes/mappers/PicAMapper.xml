@@ -115,4 +115,11 @@
 	 delete from REPLY where reply_id = #{reply_id} ;
 </delete>
 
+
+<!-- 사진 1개의 댓글 전부 가져오기-->
+<select id='getReply' parameterType="int" resultType="com.server.pica.dto.ReplyDTO">
+	 select * from REPLY where picture_id = #{picture_id} ;
+</select>
+
+
 </mapper>
