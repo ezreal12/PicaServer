@@ -79,4 +79,20 @@
 	 select * from MEMBER where email=#{email}
 </select>
 
+<!-- 좋아요 정보 삽입하기-->
+<!-- 좋아요 테이블은 중복값을 허용하지만 가능하면 같은 사진의 같은 유저 정보는 안들어오는게 좋음 서버에서 프로그램으로 관리를 잘해줄것-->
+<insert id='addLikePicture' parameterType="com.server.pica.dto.LikePictureDTO">
+	 insert into LIKE_PICTURE (picture_id, member_id) VALUES (#{picture_id}, #{member_id});
+</insert>
+
+<!-- 좋아요 정보 지우기-->
+<delete id='deleteLikePicture' parameterType="com.server.pica.dto.LikePictureDTO">
+	 delete from LIKE_PICTURE where member_id = #{member_id} and picture_id = #{picture_id} ;
+</delete>
+
+<!-- 좋아요 정보 확인하기(토글에 사용)-->
+<select id='serchLikePicture' parameterType="com.server.pica.dto.LikePictureDTO" resultType="com.server.pica.dto.LikePictureDTO">
+	 select * from LIKE_PICTURE where member_id = #{member_id} and picture_id = #{picture_id} ;
+</select>
+
 </mapper>

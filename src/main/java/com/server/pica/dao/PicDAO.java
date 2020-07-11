@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.server.pica.dto.AlbumMemberDTO;
 import com.server.pica.dto.CreateAlbumDTO;
+import com.server.pica.dto.LikePictureDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.PictureDTO;
 import com.server.pica.dto.RegisterMemberDTO;
@@ -36,4 +37,13 @@ public interface PicDAO {
 	// Email 주소로 해당되는 멤버 정보 가져오기
 	// 실제 로그인 기능에 사용
 	public RegisterMemberDTO getMemberFromEmail(String email);
+	
+	// 성공:0 / 실패 -1
+	//좋아요 정보 삽입하기
+	public int addLikePicture(LikePictureDTO dto);
+	// 성공:0 / 실패 -1
+	//좋아요 정보 지우기
+	public int deleteLikePicture(LikePictureDTO dto);
+	// 좋아요 정보 확인하기(토글에 사용)
+	public LikePictureDTO serchLikePicture(LikePictureDTO dto);
 }

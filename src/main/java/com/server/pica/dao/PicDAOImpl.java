@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.server.pica.dto.AlbumMemberDTO;
 import com.server.pica.dto.CreateAlbumDTO;
+import com.server.pica.dto.LikePictureDTO;
 import com.server.pica.dto.PicUploadDTO;
 import com.server.pica.dto.PictureDTO;
 import com.server.pica.dto.RegisterMemberDTO;
@@ -156,5 +157,36 @@ public class PicDAOImpl implements PicDAO {
 		System.out.println("getMemberFromEmail  email: "+email);
 		return (RegisterMemberDTO)sqlSession.selectOne(namespace+".getMemberFromEmail",email);
 	}
-   
+	
+	// 성공:0 / 실패 -1
+	//좋아요 정보 삽입하기
+	@Override
+	public int addLikePicture(LikePictureDTO dto) {
+		System.out.println(dto.toString());
+		try {
+			   sqlSession.insert(namespace+".addLikePicture",dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		   return 0;
+	}
+	// 성공:0 / 실패 -1
+		//좋아요 정보 지우기
+	@Override
+	public int deleteLikePicture(LikePictureDTO dto) {
+		System.out.println(dto.toString());
+		try {
+			   sqlSession.insert(namespace+".deleteLikePicture",dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		   return 0;
+	}
+	@Override
+	public LikePictureDTO serchLikePicture(LikePictureDTO dto) {
+		System.out.println("serchLikePicture  dto: "+dto.toString());
+		return (LikePictureDTO)sqlSession.selectOne(namespace+".serchLikePicture",dto);
+	}
 }

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.server.pica.dto.CreateAlbumDTO;
+import com.server.pica.dto.LikePictureDTO;
 import com.server.pica.dto.LoginVO;
 import com.server.pica.dto.MyAlbumDTO;
 import com.server.pica.dto.MyAlbumResultVO;
@@ -84,6 +85,19 @@ public class MainCont {
 		v.setCode(code);
 		return v;
 	}
+	
+	
+	@RequestMapping(value = "/likePicture.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultVO createAlbum(LikePictureDTO dto, HttpServletRequest request) {
+		int code = picService.addLikePicture(dto);
+		ResultVO v = new ResultVO();
+		v.setCode(code);
+		return v;
+	}
+	
+	
+	
 	//테스트용 
 	@RequestMapping(value = "/showTable.do", method = RequestMethod.GET)
 	public ModelAndView showTablePage() {
