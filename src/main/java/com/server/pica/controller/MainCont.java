@@ -138,6 +138,7 @@ public class MainCont {
 		System.out.println("showPictureData.do : " + result.toString());
 		return result;
 	}
+	
 	//앨범내 사진보기
 	@RequestMapping(value = "/showPicture.do", method = RequestMethod.GET)
 	@ResponseBody
@@ -149,6 +150,20 @@ public class MainCont {
 		result.setDefaultPicture(FileUtil.parseImageSrc(result.getDefaultPicture(), request));
 		return result;
 	}
+	
+	//좋아하는 사진 목록 보기
+	@RequestMapping(value = "/getLikePictureList.do", method = RequestMethod.GET)
+	@ResponseBody
+	public ShowPictureResultVO getLikePictureList(int member_id, HttpServletRequest request) {
+		System.out.println("getLikePictureList.do : member_id : " + member_id);
+		ShowPictureResultVO result = picService.showLikePictureList(member_id);
+		result = FileUtil.insertServerUrlInImages(result, request);
+		//parseImageSrc
+		result.setDefaultPicture(FileUtil.parseImageSrc(result.getDefaultPicture(), request));
+		return result;
+	}
+	
+	
 	// 로그인하기
 	// 0 성공, -1 에러(안씀), -2 비밀번호 오류, -3 아이디없음
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)

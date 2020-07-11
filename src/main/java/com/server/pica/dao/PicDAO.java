@@ -46,4 +46,12 @@ public interface PicDAO {
 	public int deleteLikePicture(LikePictureDTO dto);
 	// 좋아요 정보 확인하기(토글에 사용)
 	public LikePictureDTO serchLikePicture(LikePictureDTO dto);
+	
+	//<!-- 해당 유저가 좋아요한 사진 전부 가져오기-->
+	public List<LikePictureDTO> getLike(int member_id);
+	//<!-- 사진 1개 조회하기 -->
+	public PictureDTO getPicture(int picture_id);
+	
+	
+	
 }

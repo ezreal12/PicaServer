@@ -95,4 +95,9 @@
 	 select * from LIKE_PICTURE where member_id = #{member_id} and picture_id = #{picture_id} ;
 </select>
 
+<!-- 해당 유저가 좋아요한 사진 전부 가져오기-->
+<select id='getLike' parameterType="int" resultType="com.server.pica.dto.LikePictureDTO">
+	 select * from LIKE_PICTURE where member_id = #{member_id} ;
+</select>
+
 </mapper>

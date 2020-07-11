@@ -257,4 +257,35 @@ public class PicServiceImpl implements PicService {
 		}
 	}
 
+	// 멤버 id를 입력받고 해당 유저가 좋아하는 사진 데이터 전부 가져오기
+
+	@Override
+	public ShowPictureResultVO showLikePictureList(int member_id) {
+		ShowPictureResultVO result = new ShowPictureResultVO();
+		// 1. 해당 유저의 좋아요 정보 전부 가져오기
+		List<LikePictureDTO> likeList = dao.getLike(member_id);
+		if (likeList == null || likeList.size() == 0) {
+			result.setCode(NOT_FOUND_DATA);
+			return result;
+		}
+		// 2. 좋아요한 사진 전부 가져오기
+		// private List<PictureDTO> result;
+		List<PictureDTO> picArr = new ArrayList<PictureDTO>();
+		for (LikePictureDTO d : likeList) {
+			// 사진 1개 id로 정보 가져오기
+			PictureDTO p = dao.getPicture(d.getPicture_id());
+			if (p != null) {
+				picArr.add(p);
+			}
+		}
+
+		if (picArr.size() == 0) {
+			result.setCode(NOT_FOUND_DATA);
+			return result;
+		}
+		result.setCode(REQUEST_OK);
+		result.setResult(picArr);
+		return result;
+	}
+
 }

@@ -189,4 +189,16 @@ public class PicDAOImpl implements PicDAO {
 		System.out.println("serchLikePicture  dto: "+dto.toString());
 		return (LikePictureDTO)sqlSession.selectOne(namespace+".serchLikePicture",dto);
 	}
+	
+	@Override
+	public List<LikePictureDTO> getLike(int member_id) {
+		System.out.println("getLikePicture  member_id: "+member_id);
+		return sqlSession.selectList(namespace+".getLike",member_id);
+	}
+	//<!-- 사진 1개 조회하기 -->
+	@Override
+	public PictureDTO getPicture(int picture_id) {
+		System.out.println("getPicture  picture_id: "+picture_id);
+		return (PictureDTO)sqlSession.selectOne(namespace+".getPicture",picture_id);
+	}
 }
