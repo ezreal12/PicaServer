@@ -381,4 +381,22 @@ public class PicServiceImpl implements PicService {
 		result.setResult(wList);
 		return result;
 	}
+	
+	
+	@Override
+	public int deletePicData(int member_id, int picture_id) {
+		PictureDTO pic = dao.getPicture(picture_id);
+		if (pic == null) {
+			return NOT_FOUND_DATA;
+		}
+		else if(pic.getP_member_id()!=member_id) {
+			return NO_PERMISSOIN;
+		}
+		int result = dao.deletePicData(picture_id);
+		if(result<0)
+			return ERROR_DATABASE;
+		else 
+			return REQUEST_OK;
+	}
+	
 }

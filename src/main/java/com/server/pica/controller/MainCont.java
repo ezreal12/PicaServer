@@ -106,12 +106,22 @@ public class MainCont {
 		v.setCode(code);
 		return v;
 	}
-	
+
 	// 사진에 댓글 1개 지우기
 	@RequestMapping(value = "/replyPictrueDelete.do", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultVO replyPictrueAdd(int member_id, int reply_id) {
 		int code = picService.deleteReply(member_id, reply_id);
+		ResultVO v = new ResultVO();
+		v.setCode(code);
+		return v;
+	}
+
+	// 사진 1개 지우기
+	@RequestMapping(value = "/pictrueDelete.do", method = RequestMethod.GET)
+	@ResponseBody
+	public ResultVO pictrueDelete(int member_id, int picture_id) {
+		int code = picService.deletePicData(member_id, picture_id);
 		ResultVO v = new ResultVO();
 		v.setCode(code);
 		return v;
@@ -158,9 +168,9 @@ public class MainCont {
 		System.out.println("showPictureData.do : " + result.toString());
 		return result;
 	}
-	
+
 	// 사진 1개의 댓글 가져오기
-	//(int member_id, int picture_id)
+	// (int member_id, int picture_id)
 	@RequestMapping(value = "/showReply.do", method = RequestMethod.GET)
 	@ResponseBody
 	public ShowReplyResultVO showReply(int picture_id, int member_id, HttpServletRequest request) {
@@ -168,7 +178,6 @@ public class MainCont {
 		System.out.println("showReply.do : " + result.toString());
 		return result;
 	}
-	
 
 	// 앨범내 사진보기
 	@RequestMapping(value = "/showPicture.do", method = RequestMethod.GET)

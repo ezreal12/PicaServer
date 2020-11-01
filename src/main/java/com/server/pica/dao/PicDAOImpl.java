@@ -238,4 +238,18 @@ public class PicDAOImpl implements PicDAO {
 		System.out.println("getReply  picture_id: "+picture_id);
 		return sqlSession.selectList(namespace+".getReply",picture_id);
 	}
+	
+	@Override
+	public int deletePicData(int picture_id) {
+		System.out.println("deletePicData picture_id : "+picture_id);
+		try {
+			   sqlSession.delete(namespace+".deletePicture",picture_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		   return 0;
+	}
+	
+	
 }

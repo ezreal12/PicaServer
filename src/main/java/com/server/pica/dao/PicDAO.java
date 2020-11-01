@@ -16,6 +16,9 @@ public interface PicDAO {
 		// 1. 사진 관련 데이터를 받아 입력
 		// 2. 태그 데이터가 있을경우 태그 데이터도 입력 / 없으면 넘어감.
 	public int insertPicData(PicUploadDTO dto,List<String> tags);
+	// 사진 1장 지우기
+	public int deletePicData(int picture_id);
+	
 	// 성공:0 / 실패 -1
 	public int registerMember(RegisterMemberDTO dto);
 	// 성공:0 / 파일 저장 실패 -1 / DB 저장 실패 -2

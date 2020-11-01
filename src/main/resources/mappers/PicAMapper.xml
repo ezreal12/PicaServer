@@ -69,6 +69,12 @@
 <select id='getPicture' parameterType="int" resultType="com.server.pica.dto.PictureDTO">
 	 select * from PICTURE where picture_id=#{picture_id}
 </select>
+
+<!-- 사진 1개 지우기-->
+<delete id='deletePicture' parameterType="int">
+	 delete from PICTURE where picture_id = #{picture_id} ;
+</delete>
+
 <!-- 멤버 id 입력받아서 해당멤버가 속한 앨범 정보를 담는 album_member 가져오기 -->
 <!-- 주로 권한 체크시 사용 -->
 <select id='getAlbum_member' parameterType="int" resultType="com.server.pica.dto.AlbumMemberDTO">

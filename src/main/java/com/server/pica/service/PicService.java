@@ -59,6 +59,9 @@ public interface PicService {
 	// 성공:0 / 실패 -1
 	public int deleteReply(int member_id, int reply_id);
 	
+	// 사진 1장 지우기
+	public int deletePicData(int member_id, int picture_id);
+	
 	//<!-- 사진 1개의 댓글 전부 가져오기-->
 	//멤버 id는 해당 유저의 닉네임을 가져오는데, 자기자신이 작성했는지 여부를 확인하는곳에 쓰임
 	public ShowReplyResultVO getReply(int member_id,int picture_id);
